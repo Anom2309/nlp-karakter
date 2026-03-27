@@ -28,7 +28,7 @@ Struktur output:
 
 Gaya bahasa:
 
-- personal (gunakan “kamu”)
+- personal (“kamu”)
 
 - emosional tapi elegan
 

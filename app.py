@@ -3,7 +3,7 @@ from datetime import date
 import urllib.parse
 
 # Konfigurasi Tampilan
-st.set_page_config(page_title="Persona-NLP Analis", page_icon="🧠", layout="centered")
+st.set_page_config(page_title="Neuro Nada-NLP Analis", page_icon="🧠", layout="centered")
 
 # Visual Estetik
 st.markdown(
@@ -60,7 +60,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("🧠 Persona-NLP Analis")
+st.title("🧠 Neuro Nada-NLP Analis")
 st.markdown("**Temukan Struktur Pikiran & Potensimu di Balik Tanggal Lahir**")
 st.write("---")
 
@@ -139,7 +139,7 @@ if st.button("Analisa Karakter Saya Sekarang", type="primary"):
     st.subheader("Butuh Bimbingan Langsung?")
     st.write(f"Ingin ngobrol langsung dengan Coach Ahmad untuk sesi *Deep Coaching* atau Hipnoterapi khusus untuk karakter **{res['inti']}**?")
     
-    nomor_wa = "6281234567890" # <-- JANGAN LUPA GANTI NOMOR WA LU LAGI YA
+    nomor_wa = "6282114982376" # <-- JANGAN LUPA GANTI NOMOR WA LU LAGI YA
     pesan_wa = f"Halo Coach Ahmad, saya {nama}. Hasil Persona-NLP saya adalah {res['inti']}. Saya tertarik untuk ikut sesi privat / konsultasi."
     pesan_encoded = urllib.parse.quote(pesan_wa)
     link_wa = f"https://wa.me/{nomor_wa}?text={pesan_encoded}"

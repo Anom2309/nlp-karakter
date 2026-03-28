@@ -3,7 +3,7 @@ import datetime
 import os
 
 # --- PENGATURAN HALAMAN ---
-st.set_page_config(page_title="Peta Karakter, Weton & Zodiak", page_icon="✨", layout="centered")
+st.set_page_config(page_title="Peta Karakter Bawah Sadar", page_icon="✨", layout="centered")
 
 # --- SIDEBAR PROMOSI ---
 with st.sidebar:
@@ -18,7 +18,7 @@ with st.sidebar:
 if os.path.exists("banner.jpg"):
     st.image("banner.jpg", use_container_width=True)
 
-# --- FUNGSI LOGIKA ---
+# --- FUNGSI LOGIKA PERHITUNGAN ---
 def hitung_angka(tanggal):
     tgl_str = tanggal.strftime("%d%m%Y")
     total = sum(int(digit) for digit in tgl_str)
@@ -51,43 +51,61 @@ def hitung_zodiak(tanggal):
 st.title("✨ Peta Karakter Bawah Sadar")
 st.write("Temukan potensi tersembunyi melalui perpaduan Numerologi, Weton, dan Zodiak.")
 
-# INPUT NAMA
-nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="Contoh: Budi Santoso")
+# 1. INPUT NAMA
+nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="Masukkan namamu di sini...")
 
-# INPUT TANGGAL (SEKARANG KOSONG/NONE)
-tgl_lahir = st.date_input(
-    "Kapan kamu lahir?", 
-    value=None, 
+# 2. INPUT TANGGAL (Default ke hari ini, tapi kita kasih satpam konfirmasi)
+st.write("Silakan pilih tanggal lahirmu:")
+tgl_input = st.date_input(
+    "Tanggal Lahir:",
+    value=datetime.date.today(),
     min_value=datetime.date(1920, 1, 1),
     max_value=datetime.date.today(),
-    format="DD/MM/YYYY",
-    placeholder="Pilih tanggal lahirmu"
+    format="DD/MM/YYYY"
 )
 
+# SATPAM KONFIRMASI (Agar klien sadar sedang input data)
+sudah_input = st.checkbox("Saya sudah memastikan nama dan tanggal lahir saya benar.")
+
 st.markdown("---")
 
-# TOMBOL ANALISA DENGAN SISTEM "SATPAM" GANDA
+# 3. TOMBOL ANALISA (Hanya jalan kalau checklist sudah dicentang)
 if st.button("Analisa Karakter Saya Sekarang", type="primary"):
-    if not nama_user or tgl_lahir is None:
-        st.error("🚨 **Satpam: Eits, tunggu dulu!** Mohon isi Nama Lengkap dan Tanggal Lahirmu dengan benar ya.")
+    if not nama_user:
+        st.warning("⚠️ Mohon isi Nama Lengkap Anda terlebih dahulu.")
+    elif not sudah_input:
+        st.error("🚨 **Satpam:** Silakan centang kotak konfirmasi di atas untuk memvalidasi data Anda.")
     else:
-        angka = hitung_angka(tgl_lahir)
-        weton = hitung_weton(tgl_lahir)
-        zodiak = hitung_zodiak(tgl_lahir)
+        # Menghitung Hasil
+        angka = hitung_angka(tgl_input)
+        weton = hitung_weton(tgl_input)
+        zodiak = hitung_zodiak(tgl_input)
         
+        # Animasi Perayaan
         st.balloons()
-        st.success(f"Halo **{nama_user}**, ini adalah hasil pembacaan awalmu:")
+        st.success(f"Halo **{nama_user}**, Analisa Anda telah siap!")
         
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Angka Karakter", angka)
-        c2.metric("Weton Jawa", weton)
-        c3.metric("Zodiak", zodiak)
+        # Menampilkan Metric (Angka, Weton, Zodiak)
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Angka Karakter", angka)
+        col2.metric("Weton Jawa", weton)
+        col3.metric("Zodiak", zodiak)
         
-        st.info(f"Sebagai seorang **{zodiak}** dengan weton **{weton}**, kamu memiliki energi dasar yang sangat unik. Namun, ada satu titik buta psikologis yang sering menghambatmu...")
+        st.markdown("---")
         
-        st.markdown(f"### 🔓 Buka Rahasia Lengkapmu, {nama_user}!")
-        st.link_button("👉 DOWNLOAD VIDEO ANALISA MENDALAM", f"https://lynk.id/username_lu/produk-{angka}", type="primary")
+        # Copywriting Curiosity ala NLP
+        st.info(f"Kombinasi antara energi **{zodiak}** dan weton **{weton}** menciptakan pola pikiran bawah sadar yang sangat kuat. Namun, sebagai pemilik **Angka Karakter {angka}**, ada satu 'Program Mental' tersembunyi yang mungkin selama ini menghambat kesuksesanmu...")
+        
+        # Call to Action ke Lynk.id
+        st.markdown(f"### 🔓 Buka Rahasia Penuh Potensimu, {nama_user}!")
+        st.write("Dapatkan analisa video eksklusif dan panduan psikologis yang dirancang khusus untuk kombinasi unikmu ini.")
+        
+        # Link Dinamis (Ganti username_lu jadi username Lynk.id lu)
+        url_tujuan = f"https://lynk.id/username_lu/produk-{angka}"
+        st.link_button("👉 KLIK DI SINI UNTUK DOWNLOAD HASIL LENGKAP", url_tujuan, type="primary")
 
-# --- TENTANG KREATOR ---
+# --- PROFIL KREATOR ---
 st.markdown("---")
+st.markdown("### 👤 Tentang Kreator")
+st.write("**Ahmad Septian Dwi Cahyo** adalah seorang Trainer NLP & Profesional Hipnoterapis yang mendedikasikan ilmunya untuk membantu Anda mengenali potensi pikiran bawah sadar melalui kearifan lokal dan psikologi modern.")
 st.write(f"Aplikasi ini dikembangkan oleh **Ahmad Septian Dwi Cahyo**, seorang Trainer NLP & Hipnoterapis.")

@@ -1,24 +1,20 @@
 import streamlit as st
 import datetime
 import os
+import time
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(page_title="Peta Karakter Bawah Sadar", page_icon="✨", layout="centered")
 
-# --- SIDEBAR PROMOSI (KALIMAT BARU LEBIH MAUT) ---
+# --- SIDEBAR PROMOSI ---
 with st.sidebar:
     st.markdown("## 🌟 Layanan Eksklusif")
     st.markdown("---")
-    
-    # Versi yang paling 'Punchy' dan NLP banget
     st.info("**🧠 Break Your Limits!**\n\nJangan biarkan pikiranmu sendiri jadi penjara. Bebaskan potensi terbaikmu melalui sesi *Private Hypnotherapy* eksklusif bersama **Ahmad Septian**.")
     st.markdown("[👉 **Booking Jadwal Konsultasi**](https://lynk.id/username_lu/private-hypnotherapy)")
-    
     st.markdown("---")
-    
     st.success("**📚 E-Book: NLP Persuasi**\n\nKuasai teknik komunikasi bawah sadar untuk karir dan hubungan.")
     st.markdown("[👉 **Download Sekarang**](https://lynk.id/username_lu/ebook-nlp)")
-    
     st.markdown("---")
     st.caption("© 2026 Ahmad Septian Dwi Cahyo")
 
@@ -57,14 +53,12 @@ def hitung_zodiak(tanggal):
 
 # --- INTERFACE UTAMA ---
 st.title("✨ Peta Karakter Bawah Sadar")
-st.write("Temukan potensi tersembunyi melalui perpaduan Numerologi, Weton, dan Zodiak.")
+st.write("Analisa pola pikiran melalui perpaduan Numerologi, Weton, dan Zodiak.")
 
 st.markdown("---")
 
-# 1. INPUT NAMA
 nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="Ketik namamu di sini...")
 
-# 2. INPUT TANGGAL (Default ke hari ini biar gak error, tapi ada satpam)
 tgl_today = datetime.date.today()
 tgl_input = st.date_input(
     "Pilih Tanggal Lahirmu:",
@@ -76,36 +70,42 @@ tgl_input = st.date_input(
 
 st.markdown("---")
 
-# 3. TOMBOL ANALISA + SATPAM KETAT
-if st.button("Analisa Karakter Saya Sekarang", type="primary"):
+# --- PROSES ANALISA ELEGAN ---
+if st.button("Mulai Analisa Mendalam", type="primary"):
     if not nama_user:
         st.error("🚨 **Akses Ditolak:** Nama Lengkap tidak boleh kosong!")
     elif tgl_input == tgl_today:
-        st.error("🚨 **Akses Ditolak:** Silakan pilih Tanggal Lahir Anda yang benar (jangan biarkan tanggal hari ini).")
+        st.error("🚨 **Akses Ditolak:** Silakan pilih Tanggal Lahir Anda yang benar.")
     else:
-        # Menghitung Hasil
-        angka_hasil = hitung_angka(tgl_input)
-        weton_hasil = hitung_weton(tgl_input)
-        zodiak_hasil = hitung_zodiak(tgl_input)
+        # Efek Loading Elegan (Biar terkesan aplikasi lagi 'membaca' karakter)
+        with st.spinner('Menghubungkan pola bawah sadar...'):
+            time.sleep(2) # Memberi jeda 2 detik agar lebih dramatis
+            
+            # Hitung Hasil
+            angka_hasil = hitung_angka(tgl_input)
+            weton_hasil = hitung_weton(tgl_input)
+            zodiak_hasil = hitung_zodiak(tgl_input)
         
-        st.balloons()
-        st.success(f"Halo **{nama_user}**, Analisa Karaktermu telah siap!")
+        # Tampilan Hasil yang Bersih & Berwibawa
+        st.markdown(f"### 🖋️ Laporan Analisa: {nama_user}")
+        st.divider()
         
-        # Tampilan Hasil (Metric)
         c1, c2, c3 = st.columns(3)
-        c1.metric("Angka Karakter", angka_hasil)
-        c2.metric("Weton Jawa", weton_hasil)
-        c3.metric("Zodiak", zodiak_hasil)
+        c1.metric("Angka Dominan", angka_hasil)
+        c2.metric("Energi Weton", weton_hasil)
+        c3.metric("Rasi Bintang", zodiak_hasil)
         
         st.markdown("---")
-        st.info(f"Kombinasi energi **{zodiak_hasil}** dan weton **{weton_hasil}** menunjukkan pola pikiran bawah sadar yang unik. Sebagai pemilik **Angka Karakter {angka_hasil}**, ada rahasia mental yang perlu Anda ketahui.")
+        
+        # Narasi Singkat
+        st.write(f"Berdasarkan pola frekuensi Anda, perpaduan antara **{zodiak_hasil}** dan **{weton_hasil}** menciptakan struktur kepribadian yang unik. Sebagai pemilik **Angka Karakter {angka_hasil}**, Anda memiliki potensi besar yang sering kali terhambat oleh hambatan mental yang tidak disadari.")
         
         # Call to Action
-        st.markdown(f"### 🔓 Buka Rahasia Penuh Potensimu, {nama_user}!")
+        st.info(f"**Insight untuk {nama_user}:** Titik balik kesuksesan Anda ada pada pemahaman 'Blind Spot' psikologis Anda sendiri.")
+        
         url_lynk = f"https://lynk.id/username_lu/produk-{angka_hasil}"
-        st.link_button("👉 KLIK UNTUK DOWNLOAD ANALISA LENGKAP", url_lynk, type="primary")
+        st.link_button("👉 DOWNLOAD ANALISA PSIKOLOGIS LENGKAP", url_lynk, type="primary")
 
-# --- PROFIL KREATOR ---
+# --- FOOTER ---
 st.markdown("---")
-st.markdown("### 👤 Tentang Kreator")
-st.write("**Ahmad Septian Dwi Cahyo C.MH, C.PHt, C.T NNLP** adalah seorang Trainer NLP & Profesional Hipnoterapis yang membantu Anda memaksimalkan potensi pikiran bawah sadar.")
+st.write(f"Dikembangkan secara profesional oleh **Ahmad Septian Dwi Cahyo**.")

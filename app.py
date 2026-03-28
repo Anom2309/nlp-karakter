@@ -22,7 +22,7 @@ with st.sidebar:
     st.markdown("[👉 **Download Sekarang**](https://lynk.id/username_lu/ebook-nlp)")
     
     st.markdown("---")
-    st.caption("© 2026 Ahmad Septian Dwi Cahyo. All rights reserved.")
+    st.caption("© 2026 Ahmad Septian Dwi Cahyo C.MH, C.PHT, C.T NNLP. All rights reserved.")
 
 # --- MENAMPILKAN BANNER ESTETIK ---
 if os.path.exists("banner.jpg"):

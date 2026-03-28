@@ -52,7 +52,7 @@ st.title("✨ Peta Karakter Bawah Sadar")
 st.write("Temukan potensi tersembunyi melalui perpaduan Numerologi, Weton, dan Zodiak.")
 
 # BARIS NAMA (YANG HILANG)
-nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="Contoh: .....")
+nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="   ")
 
 # INPUT TANGGAL
 tgl_lahir = st.date_input("Kapan kamu lahir?", min_value=datetime.date(1920, 1, 1))

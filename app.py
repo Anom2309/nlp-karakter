@@ -98,17 +98,17 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         
         st.markdown("---")
         
-        # --- HASIL 1: KARAKTER (Bahasa Profesional & Membumi) ---
+        # --- HASIL 1: KARAKTER ---
         st.subheader("💡 Struktur Karakter & Mental")
         st.write(f"Halo **{nama_user}**, sistem mendeteksi bahwa filter utama pikiran Anda dipengaruhi oleh pola **{zodiak_hasil}** dengan pondasi energi **{weton_hasil}**.")
         st.info(f"Sebagai pemilik **Kode {angka_hasil}**, Anda memiliki spek berpikir yang tajam namun sering kali terhambat oleh 'program lama' yang tidak lagi relevan. Secara NLP, Anda membutuhkan proses *Reframing* agar hambatan mental yang sering muncul bisa berubah menjadi kekuatan pendorong kesuksesan.")
 
-        # --- HASIL 2: PERCINTAAN (Insight Baru) ---
+        # --- HASIL 2: PERCINTAAN ---
         st.subheader("❤️ Pola Hubungan & Asmara")
         st.write(f"Dalam dinamika hubungan, perpaduan **{zodiak_hasil}** dan **{weton_hasil}** membuat Anda memiliki cara unik dalam mengekspresikan kasih sayang.")
-        st.warning(f"**Insight Asmara:** Kode **{angka_hasil}** menunjukkan bahwa Anda cenderung mencari kedalaman komunikasi. Namun, hati-hati terhadap pola 'asumsi' yang sering muncul di pikiran bawah sadar Anda. Belajar memahami *Representational System* pasangan akan membuat hubungan Anda jauh lebih harmonis dan minim konflik.")
+        st.warning(f"**Insight Asmara:** Kode **{angka_hasil}** menunjukkan bahwa Anda cenderung mencari kedalaman komunikasi. Belajar memahami sistem komunikasi pasangan akan membuat hubungan Anda jauh lebih harmonis.")
 
-        # --- CTA DINAMIS ---
+        # --- CTA ---
         link_produk = {
             1: "https://lynk.id/username_lu/produk-angka-1",
             2: "https://lynk.id/username_lu/produk-angka-2",
@@ -125,9 +125,20 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         
         st.markdown("---")
         st.markdown(f"#### 🔓 Ingin Memprogram Ulang Hidup Anda, {nama_user}?")
-        st.write(f"Akses panduan eksklusif untuk pemilik Kode {angka_hasil}. Pelajari teknik spesifik untuk menghapus hambatan mental dan memperbaiki pola hubungan Anda.")
-        
         st.link_button(f"👉 DOWNLOAD MODUL TRANSFORMASI (KODE {angka_hasil})", url_tujuan, type="primary")
+
+        # --- BAGIAN DISCLAIMER (BARU) ---
+        st.markdown("---")
+        with st.expander("⚖️ Disclaimer & Batasan Layanan"):
+            st.caption("""
+            Analisa ini dihasilkan melalui pendekatan *Self-Awareness* berbasis sinkronisasi data personal (Numerologi, Weton, dan Zodiak) dalam bingkai disiplin ilmu Neuro-Linguistic Programming (NLP). 
+            
+            **Harap diperhatikan:**
+            1. Hasil analisa ini bertujuan sebagai alat edukasi dan refleksi diri, bukan diagnosis medis atau psikologis klinis.
+            2. Keakuratan interpretasi sangat bergantung pada kejujuran data yang dimasukkan.
+            3. Ahmad Septian Dwi Cahyo tidak bertanggung jawab atas keputusan pribadi yang diambil pengguna berdasarkan hasil analisa ini.
+            4. Untuk perubahan perilaku yang permanen dan mendalam, disarankan untuk mengikuti sesi bimbingan tatap muka (Private Session).
+            """)
 
 # --- FOOTER ---
 st.markdown("---")

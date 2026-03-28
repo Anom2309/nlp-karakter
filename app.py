@@ -51,18 +51,25 @@ def hitung_zodiak(tanggal):
 st.title("✨ Peta Karakter Bawah Sadar")
 st.write("Temukan potensi tersembunyi melalui perpaduan Numerologi, Weton, dan Zodiak.")
 
-# BARIS NAMA (YANG HILANG)
-nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="   ")
+# INPUT NAMA
+nama_user = st.text_input("Siapa nama lengkapmu?", placeholder="Contoh: Budi Santoso")
 
-# INPUT TANGGAL
-tgl_lahir = st.date_input("Kapan kamu lahir?", min_value=datetime.date(1920, 1, 1))
+# INPUT TANGGAL (SEKARANG KOSONG/NONE)
+tgl_lahir = st.date_input(
+    "Kapan kamu lahir?", 
+    value=None, 
+    min_value=datetime.date(1920, 1, 1),
+    max_value=datetime.date.today(),
+    format="DD/MM/YYYY",
+    placeholder="Pilih tanggal lahirmu"
+)
 
 st.markdown("---")
 
-# TOMBOL ANALISA DENGAN SISTEM "SATPAM"
+# TOMBOL ANALISA DENGAN SISTEM "SATPAM" GANDA
 if st.button("Analisa Karakter Saya Sekarang", type="primary"):
-    if not nama_user:
-        st.error("🚨 **Eits, tunggu dulu!** Silakan isi namamu dulu ya sebelum lanjut.")
+    if not nama_user or tgl_lahir is None:
+        st.error("🚨 **Satpam: Eits, tunggu dulu!** Mohon isi Nama Lengkap dan Tanggal Lahirmu dengan benar ya.")
     else:
         angka = hitung_angka(tgl_lahir)
         weton = hitung_weton(tgl_lahir)

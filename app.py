@@ -10,32 +10,16 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- CUSTOM CSS (GOLD THEME) ---
-st.markdown("""
-    <style>
-    .main { background-color: #0e1117; }
-    .stMetric { background-color: #1c1e26; border: 1px solid #d4af37; padding: 15px; border-radius: 10px; }
-    .stButton>button { width: 100%; background-color: #d4af37; color: black; font-weight: bold; border-radius: 5px; border: none; height: 50px; }
-    .stButton>button:hover { background-color: #b8962e; color: white; }
-    </style>
-    """, unsafe_allow_stdio=True)
-
 # --- SIDEBAR PROMOSI ---
 with st.sidebar:
     st.markdown("## 🧠 Sesi Transformasi")
+    st.info("**Reset Pola Pikir Anda**\n\nMari lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
+    st.markdown("[👉 **Booking Jadwal**](https://lynk.id/username_lu/private-hypnotherapy)")
     st.markdown("---")
-    st.info("**Reset Pola Pikir Anda**\n\nSering merasa terhambat oleh pikiran sendiri? Mari lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
-    st.markdown("[👉 **Booking Jadwal Konsultasi**](https://lynk.id/username_lu/private-hypnotherapy)")
-    st.markdown("---")
-    st.success("**📚 Seni Persuasi NLP**\n\nKuasai bahasa bawah sadar untuk meningkatkan pengaruh Anda.")
-    st.markdown("[👉 **Akses Modul Lengkap**](https://lynk.id/username_lu/ebook-nlp)")
-    st.caption("© 2026 Ahmad Septian Dwi Cahyo")
+    st.success("**📚 Seni Persuasi NLP**\n\nKuasai bahasa bawah sadar Anda.")
+    st.markdown("[👉 **Akses Modul**](https://lynk.id/username_lu/ebook-nlp)")
 
-# --- BANNER ---
-if os.path.exists("banner.jpg"):
-    st.image("banner.jpg", use_container_width=True)
-
-# --- LOGIKA PERHITUNGAN ---
+# --- FUNGSI LOGIKA ---
 def hitung_angka(tanggal):
     tgl_str = tanggal.strftime("%d%m%Y")
     total = sum(int(digit) for digit in tgl_str)
@@ -64,38 +48,14 @@ def hitung_zodiak(tanggal):
     elif (m == 1 and d >= 20) or (m == 2 and d <= 18): return "Aquarius"
     else: return "Pisces"
 
-# --- DATABASE ANALISA MENDALAM ---
-def get_deep_analysis(angka, nama):
+# --- DATABASE ANALISA ---
+def get_analysis(angka, nama):
     data = {
-        1: {
-            "title": "Sang Perintis (The Initiator)",
-            "karakter": f"Halo **{nama}**, Anda memiliki instalasi mental seorang pemimpin. Namun, seringkali *Internal Dialogue* Anda terlalu keras, menuntut kesempurnaan yang memicu penundaan (*procrastination*).",
-            "asmara": "Anda dominan dan protektif. Tantangan NLP Anda adalah belajar *Active Listening*. Pasangan butuh didengarkan, bukan sekadar diberi instruksi.",
-            "insight": "Meminta bantuan bukan tanda lemah, tapi strategi *leverage* untuk melompat lebih tinggi."
-        },
-        2: {
-            "title": "Sang Penyelaras (The Harmonizer)",
-            "karakter": f"**{nama}**, Anda memiliki intuisi tajat untuk membaca perasaan orang lain. Namun, Anda sering terjebak dalam pola *People Pleasing* hingga mengabaikan diri sendiri.",
-            "asmara": "Sangat setia, namun sering memendam emosi demi menghindari konflik. Ini bisa menjadi bom waktu bagi kedekatan emosional Anda.",
-            "insight": "Keharmonisan sejati dimulai dari kejujuran pada diri sendiri. Belajarlah menetapkan *Boundaries*."
-        },
-        3: {
-            "title": "Sang Ekspresif (The Communicator)",
-            "karakter": f"Pikiran Anda, **{nama}**, bekerja sangat cepat secara visual. Namun, Anda sering mengalami *Shiny Object Syndrome*—mudah memulai tapi sulit menyelesaikan.",
-            "asmara": "Pasangan yang ceria, namun kadang menutupi kegelisahan dengan candaan sehingga pasangan sulit menyentuh sisi terdalam Anda.",
-            "insight": "Gunakan teknik *Chunking Down* untuk menyelesaikan satu misi besar hingga tuntas."
-        },
-        4: {
-            "title": "Sang Pembangun (The Architect)",
-            "karakter": f"**{nama}**, Anda adalah pilar stabilitas. Namun, pola pikir prosedural ini membuat Anda stres jika menghadapi perubahan mendadak.",
-            "asmara": "Cinta bagi Anda adalah tanggung jawab nyata. Pasangan mungkin merasa Anda kurang romantis secara verbal karena fokus pada bukti tindakan.",
-            "insight": "Fleksibilitas adalah kunci evolusi. Terima ketidakpastian sebagai bagian dari keindahan hidup."
-        },
-        5: {
-            "title": "Sang Penjelajah (The Visionary)",
-            "karakter": f"Kebebasan adalah oksigen bagi Anda, **{nama}**. Tantangannya adalah rasa bosan ekstrem terhadap rutinitas yang membuat hidup terasa tidak stabil.",
-            "asmara": "Penuh kejutan, namun cenderung melarikan diri secara emosional jika merasa 'tercekik' oleh komitmen yang terlalu kaku.",
-            "insight": "Disiplin adalah jembatan menuju kebebasan yang lebih besar. Temukan satu fokus yang layak diperjuangkan."
-        },
-        6: {
-            "title": "Sang Pelindung (The N
+        1: ["Sang Perintis", f"Halo **{nama}**, Anda adalah pemimpin alami. Namun, hati-hati dengan *Internal Dialogue* yang terlalu keras yang memicu penundaan.", "Anda dominan. Pasangan Anda butuh *Active Listening*, bukan sekadar instruksi.", "Meminta bantuan adalah strategi *leverage*, bukan tanda lemah."],
+        2: ["Sang Penyelaras", f"**{nama}**, Anda sangat intuitif. Namun, Anda sering terjebak pola *People Pleasing* hingga mengabaikan diri sendiri.", "Sangat setia, namun sering memendam emosi demi menghindari konflik.", "Keharmonisan sejati dimulai dari kejujuran pada diri sendiri."],
+        3: ["Sang Ekspresif", f"**{nama}**, pikiran Anda sangat cepat dan visual. Namun, Anda sering mudah memulai hal baru tapi sulit menyelesaikannya.", "Ceria, namun kadang menutupi kegelisahan dengan candaan.", "Gunakan teknik *Chunking Down* untuk fokus pada satu misi."],
+        4: ["Sang Pembangun", f"**{nama}**, Anda adalah pilar stabilitas. Namun, Anda sering stres jika menghadapi perubahan mendadak.", "Cinta bagi Anda adalah tanggung jawab nyata. Pasangan mungkin merasa Anda kurang romantis secara verbal.", "Fleksibilitas adalah kunci evolusi Anda."],
+        5: ["Sang Penjelajah", f"**{nama}**, kebebasan adalah oksigen bagi Anda. Namun, rasa bosan terhadap rutinitas sering membuat hidup terasa tidak stabil.", "Penuh kejutan, namun cenderung melarikan diri jika merasa tercekik komitmen.", "Disiplin adalah jembatan menuju kebebasan yang lebih besar."],
+        6: ["Sang Pelindung", f"**{nama}**, Anda merasa bertanggung jawab atas kebahagiaan orang lain. Ini sering membuat Anda lelah secara emosional.", "Sangat hangat. Hindari pola *Over-Controlling* karena rasa takut kehilangan.", "Anda tidak bisa menuang dari gelas yang kosong. Rawat diri Anda dulu."],
+        7: ["Sang Pencari", f"**{nama}**, Anda pemikir dalam yang analitis. Namun, Anda sering terjebak *Overthinking* yang menghambat tindakan.", "Koneksi intelektual adalah segalanya. Tanpa itu, Anda akan merasa asing.", "Jawaban ada dalam pengalaman nyata, bukan hanya dalam pikiran."],
+        8: ["Sang Eksekutif", f"**{nama}**, Anda berorientasi hasil dan kuat di bawah tekanan. Namun, Anda sering terlihat dingin karena terlalu fokus target.", "Kehadiran emosional Anda jauh lebih berharga

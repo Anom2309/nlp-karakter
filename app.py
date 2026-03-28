@@ -3,12 +3,12 @@ import datetime
 import os
 
 # --- PENGATURAN HALAMAN ---
-st.set_page_config(page_title="Peta Karakter Bawah Sadar", page_icon="✨", layout="centered")
+st.set_page_config(page_title="Peta Karakter dan Kepribadianmu", page_icon="✨", layout="centered")
 
 # --- SIDEBAR PROMOSI ---
 with st.sidebar:
     st.markdown("## 🌟 Layanan Eksklusif")
-    st.info("\n\n🧠 Program Ulang Pikiran Bawah Sadarmu > Apa yang akan berubah jika semua mental block-mu hilang hari ini? Temukan jawabannya di sesi Deep Hypnosis eksklusif bersama Coach Ahmad Septian..")
+    st.info("\n\n🧠 Break Your Limits! > Jangan biarkan pikiranmu sendiri jadi penjara. Bebaskan potensi terbaikmu melalui sesi Private Hypnotherapy bersama Coach Ahmad")
     st.markdown("[👉 Booking Jadwal](https://lynk.id/username_lu/private-hypnotherapy)")
     st.markdown("---")
     st.success("**📚 E-Book: NLP Persuasi**\n\nKuasai teknik komunikasi bawah sadar.")
@@ -48,7 +48,7 @@ def hitung_zodiak(tanggal):
     else: return "Pisces"
 
 # --- INTERFACE UTAMA ---
-st.title("✨ Peta Karakter Bawah Sadar")
+st.title("✨ Peta Karakter dan Kepribadianmu")
 st.write("Temukan potensi tersembunyi melalui perpaduan Numerologi, Weton, dan Zodiak.")
 
 st.markdown("---")

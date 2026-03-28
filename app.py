@@ -120,4 +120,4 @@ if st.button("Mulai Pemetaan Bawah Sadar", type="primary"):
 
 # --- FOOTER ---
 st.markdown("---")
-st.write(f"Developed by **Ahmad Septian Dwi Cahyo** - Certified NLP Trainer & Hypnotherapist.")
+st.write(f"Developed by **Ahmad Septian Dwi Cahyo** - Certified NLP Trainer & Professional Hypnotherapist.")

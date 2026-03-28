@@ -8,7 +8,7 @@ st.set_page_config(page_title="Peta Karakter Bawah Sadar", page_icon="✨", layo
 # --- SIDEBAR PROMOSI ---
 with st.sidebar:
     st.markdown("## 🌟 Layanan Eksklusif")
-    st.info("**🧠 Sesi Private Hypnotherapy**\n\nLepaskan mental block bersama Ahmad Septian.")
+    st.info("**🧠 Sesi Private Hypnotherapy**\n\n🧠 Program Ulang Pikiran Bawah Sadarmu > Apa yang akan berubah jika semua mental block-mu hilang hari ini? Temukan jawabannya di sesi Deep Hypnosis eksklusif bersama Coach Ahmad Septian..")
     st.markdown("[👉 Booking Jadwal](https://lynk.id/username_lu/private-hypnotherapy)")
     st.markdown("---")
     st.success("**📚 E-Book: NLP Persuasi**\n\nKuasai teknik komunikasi bawah sadar.")

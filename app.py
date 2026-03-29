@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 import os
 import time
+import urllib.parse
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(
@@ -127,7 +128,7 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         st.markdown(f"#### 🔓 Ingin Memprogram Ulang Hidup Anda, {nama_user}?")
         st.link_button(f"👉 DOWNLOAD MODUL TRANSFORMASI (KODE {angka_hasil})", url_tujuan, type="primary")
 
-        # --- BAGIAN FAQ (BARU) ---
+        # --- BAGIAN FAQ ---
         st.markdown("---")
         st.subheader("❓ Pertanyaan Sering Diajukan (FAQ)")
         
@@ -138,7 +139,7 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             st.write("Karena Ahmad Septian menggabungkan ketiga variabel tersebut untuk melihat 'Meta-Program' yang lebih spesifik. Ini adalah analisa yang dipersonalisasi khusus untuk struktur mental Anda.")
             
         with st.expander("Bagaimana cara hasil ini membantu hidup saya?"):
-            st.write("Dengan mengetahui 'Kode Program' Anda, Anda bisa lebih mudah mengenali kenapa Anda sering melakukan pola yang sama (misal: sering gagal di titik yang sama). Ini adalah langkah awal untuk melakukan Re-Programming.")
+            st.write("Dengan mengetahui 'Kode Program' Anda, Anda bisa lebih mudah mengenali kenapa Anda sering melakukan pola yang sama. Ini adalah langkah awal untuk melakukan Re-Programming.")
 
         # --- BAGIAN DISCLAIMER ---
         st.markdown("---")
@@ -147,6 +148,40 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             Analisa ini bertujuan sebagai alat edukasi dan refleksi diri, bukan diagnosis medis atau psikologis klinis.
             Ahmad Septian Dwi Cahyo tidak bertanggung jawab atas keputusan pribadi yang diambil pengguna berdasarkan hasil analisa ini.
             """)
+
+        # --- INTEGRASI WHATSAPP (BARU) ---
+        phone_number = "628123456789" # <--- GANTI DENGAN NOMOR WA KAMU
+        wa_text = (
+            f"Halo Coach Ahmad, saya {nama_user}. Saya baru saja melihat profil karakter saya di Persona-NLP Analis. "
+            f"Hasilnya (Kode {angka_hasil}) sangat relatable! Saya penasaran bagaimana cara memaksimalkan potensi ini "
+            "melalui sesi NLP. Boleh dibantu jadwalnya?"
+        )
+        encoded_wa = urllib.parse.quote(wa_text)
+        wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
+
+        st.markdown(f"""
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f0f2f6; border-radius: 15px;">
+                <h4 style="color: #1f1f1f; margin-bottom: 15px;">Butuh Kalibrasi Pikiran Lebih Dalam?</h4>
+                <a href="{wa_link}" target="_blank" style="text-decoration: none;">
+                    <button style="
+                        width: 100%;
+                        background-color: #25D366;
+                        color: white;
+                        padding: 16px;
+                        border: none;
+                        border-radius: 12px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        font-size: 18px;
+                        box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.3);">
+                        💬 Maksimalkan Potensi NLP Saya
+                    </button>
+                </a>
+                <p style="font-size: 13px; color: #666; margin-top: 12px;">
+                    Konsultasi langsung dengan Coach Ahmad Septian
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
 # --- FOOTER ---
 st.markdown("---")

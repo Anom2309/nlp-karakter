@@ -192,16 +192,43 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         st.markdown(f"#### 🔓 Kuasai 'Remote Control' Pikiran Bawah Sadar Anda Sekarang, {nama_user}?")
         st.link_button(f"👉 DOWNLOAD MODUL TRANSFORMASI (KODE {angka_hasil})", url_tujuan, type="primary")
 
-        # --- FAQ ---
+        # --- BAGIAN FAQ (PRE-TALK & EDUCATIONAL) ---
         st.markdown("---")
-        st.subheader("❓ FAQ")
-        with st.expander("Apakah ini sama dengan ramalan nasib?"):
-            st.write("Bukan. Analisa ini memetakan pola pikiran bawah sadar menggunakan NLP.")
+        st.subheader("❓ Pertanyaan Terkait Pemetaan")
+        
+        with st.expander("Bagaimana sistem ini membedah struktur pikiran saya?"):
+            st.write("""
+            Sistem **Persona-NLP Analis** menggunakan integrasi data kronologis (tanggal lahir) sebagai *pintu masuk* untuk mengidentifikasi 
+            **Meta-Program** atau filter dominan dalam pikiran bawah sadar Anda. Ini bukan ramalan nasib, melainkan pemetaan 
+            kecenderungan perilaku (*behavioral patterns*) dan gaya pemrosesan informasi (*VAK Model*) Anda.
+            """)
+            
+        with st.expander("Kenapa akurasinya terasa sangat personal?"):
+            st.write("""
+            Karena Coach **Ahmad Septian** menggabungkan tiga variabel fundamental: **Kode Numerik** (Pola Logika), 
+            **Energi Weton** (Kecerdasan Lokal/Intuisi), dan **Pola Zodiak** (Arketipe Karakter). Sinergi ketiga elemen ini 
+            menghasilkan profil psikografis yang jauh lebih akurat dibandingkan analisa satu dimensi.
+            """)
+            
+        with st.expander("Apa langkah selanjutnya setelah mengetahui 'Kode Program' ini?"):
+            st.write("""
+            Mengetahui adalah langkah awal (Awareness). Langkah selanjutnya adalah melakukan **Re-Programming**. 
+            Anda bisa menggunakan modul transformasi yang disediakan di atas atau melakukan sesi **Deep Calibration** secara *Private* bersama Coach Ahmad untuk membereskan hambatan mental (*Limiting Belief*) yang terdeteksi.
+            """)
 
-        # --- DISCLAIMER ---
+        # --- BAGIAN DISCLAIMER (PROFESSIONAL LEGAL) ---
         st.markdown("---")
-        with st.expander("⚖️ Disclaimer"):
-            st.caption("Analisa ini bersifat edukatif, bukan diagnosis medis/psikologis klinis.")
+        with st.expander("⚖️ Disclaimer & Batasan Layanan"):
+            st.caption(f"""
+            **PEMBERITAHUAN PENTING:** Analisa **Persona-NLP Analis** ini dirancang murni untuk tujuan edukasi, pengembangan diri, dan refleksi pribadi. 
+            Hasil analisa ini bukan merupakan diagnosis medis, psikiatri, atau layanan psikologi klinis. 
+            
+            Segala keputusan, tindakan, atau perubahan hidup yang diambil oleh **{nama_user}** setelah membaca analisa ini 
+            adalah tanggung jawab pribadi sepenuhnya. Layanan ini bertujuan untuk memberikan sudut pandang baru dalam 
+            memahami struktur pikiran, namun tidak menggantikan saran dari tenaga medis profesional jika diperlukan.
+            
+            © 2026 Neuro Nada - Ahmad Septian Dwi Cahyo.
+            """)
 
         # --- INTEGRASI WHATSAPP ---
         phone_number = "628999771486" 
@@ -213,11 +240,12 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
 
         st.markdown(f"""
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f0f2f6; border-radius: 15px;">
-                <h4 style="color: #1f1f1f; margin-bottom: 15px;">Butuh Kalibrasi Pikiran Lebih Dalam?</h4>
+            <div style="text-align: center; margin-top: 30px; padding: 25px; background-color: #f8f9fb; border: 1px solid #e1e4e8; border-radius: 15px;">
+                <h4 style="color: #1f1f1f; margin-bottom: 15px;">Butuh Sesi Deep Calibration?</h4>
+                <p style="font-size: 14px; color: #444; margin-bottom: 20px;">Berisihkan hambatan mental dan instal pola pikir baru bersama Coach Ahmad Septian.</p>
                 <a href="{wa_link}" target="_blank" style="text-decoration: none;">
                     <button style="width: 100%; background-color: #25D366; color: white; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.3);">
-                        💬 Maksimalkan Potensi NLP Saya
+                        💬 Konsultasi via WhatsApp
                     </button>
                 </a>
             </div>
@@ -225,4 +253,8 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
 
 # --- FOOTER ---
 st.markdown("---")
-st.write(f"**Ahmad Septian Dwi Cahyo** - Certified NLP Trainer & Professional Hypnotherapist.")
+st.markdown(
+    "<center><b>Ahmad Septian Dwi Cahyo</b><br>"
+    "<small>Certified NLP Trainer & Professional Hypnotherapist</small></center>", 
+    unsafe_allow_html=True
+)

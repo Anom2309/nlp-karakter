@@ -150,7 +150,7 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             """)
 
         # --- INTEGRASI WHATSAPP (BARU) ---
-        phone_number = "628123456789" # <--- GANTI DENGAN NOMOR WA KAMU
+        phone_number = "628999771486" # <--- GANTI DENGAN NOMOR WA KAMU
         wa_text = (
             f"Halo Coach Ahmad, saya {nama_user}. Saya baru saja melihat profil karakter saya di Persona-NLP Analis. "
             f"Hasilnya (Kode {angka_hasil}) sangat relatable! Saya penasaran bagaimana cara memaksimalkan potensi ini "

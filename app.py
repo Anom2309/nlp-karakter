@@ -31,7 +31,7 @@ if os.path.exists("banner.jpg"):
 data_analisa = {
     1: {
         "karakter": "Anda memiliki profil 'The Leader'. Meta-program Anda sangat proaktif dan berorientasi pada tujuan (Towards). Secara NLP, Anda sering menggunakan filter 'Self', yang membuat Anda mandiri namun kadang terlihat dominan.",
-        "asmara": "Dalam asmara, Anda butuh pasangan yang menghargai independensi Anda. Hati-hati dengan pola komunikasi 'Command', cobalah lebih banyak menggunakan 'Request' agar pasangan merasa lebih nyaman."
+        "asmara": "Anda butuh pasangan yang menghargai independensi Anda. Hati-hati dengan pola komunikasi 'Command', cobalah lebih banyak menggunakan 'Request' agar pasangan merasa lebih nyaman."
     },
     2: {
         "karakter": "Anda adalah 'The Mediator'. Kekuatan utama Anda adalah 'Building Rapport' secara instan. Anda sangat sensitif terhadap harmoni lingkungan, namun seringkali mengabaikan kebutuhan diri sendiri (Filter: Others).",
@@ -43,7 +43,7 @@ data_analisa = {
     },
     4: {
         "karakter": "Anda adalah 'The Architect'. Struktur berpikir Anda sangat detail dan prosedural. Secara NLP, Anda memiliki filter 'Internal Reference' yang kuat, sehingga Anda tidak mudah goyah oleh opini luar jika sudah punya data.",
-        "asmara": "Dalam asmara, Anda butuh kepastian dan rencana jangka panjang. Spontanitas berlebihan dari pasangan bisa membuat sistem internal Anda 'Error'. Belajarlah sedikit lebih fleksibel dalam menerima perubahan rencana."
+        "asmara": "Anda butuh kepastian dan rencana jangka panjang. Spontanitas berlebihan dari pasangan bisa membuat sistem internal Anda 'Error'. Belajarlah sedikit lebih fleksibel dalam menerima perubahan rencana."
     },
     5: {
         "karakter": "Profil 'The Visionary/Explorer'. Anda adalah ahli dalam 'Reframing' situasi sulit menjadi peluang. Anda sangat fleksibel dan benci dengan batasan atau prosedur yang terlalu kaku.",
@@ -65,6 +65,21 @@ data_analisa = {
         "karakter": "Profil 'The Humanist'. Anda memiliki 'State of Mind' yang inklusif dan bijaksana. Secara NLP, Anda cenderung memandang dunia secara 'Holistik' dan memiliki misi hidup yang melampaui kepentingan pribadi.",
         "asmara": "Anda mencari koneksi jiwa (Soulmate). Anda sangat pemaaf, namun waspadai pola 'Generalization' yang membuat Anda sering memaklumi kesalahan pasangan berulang kali. Tetaplah realistis dalam membangun hubungan."
     }
+}
+
+tips_zodiak_nlp = {
+    "Aries": "Gunakan teknik 'Pacing' emosi yang lebih sabar agar pasangan tidak terintimidasi.",
+    "Taurus": "Berikan ruang untuk 'Reframing' jika terjadi perbedaan pendapat.",
+    "Gemini": "Fokus pada 'Deep Rapport' daripada sekadar obrolan permukaan.",
+    "Cancer": "Hati-hati dengan pola 'Anchor' negatif dari masa lalu.",
+    "Leo": "Gunakan bahasa 'Appreciation' untuk menguatkan mental pasangan.",
+    "Virgo": "Kurangi filter 'Detail' berlebihan, gunakan 'Chunk Up' untuk melihat visi besar.",
+    "Libra": "Pastikan 'Internal Reference' Anda kuat, jangan terlalu tergantung opini pasangan.",
+    "Scorpio": "Bangun 'Trust' melalui transparansi, hindari pola 'Mind Reading'.",
+    "Sagittarius": "Jaga komitmen melalui 'Value Alignment'.",
+    "Capricorn": "Seimbangkan antara 'Outcome' karier dengan kehadiran emosional.",
+    "Aquarius": "Hubungkan visi idealis Anda dengan realitas emosional pasangan.",
+    "Pisces": "Bedakan antara imajinasi dengan kenyataan agar tidak mudah kecewa."
 }
 
 # --- FUNGSI LOGIKA PERHITUNGAN ---
@@ -128,8 +143,6 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             angka_hasil = hitung_angka(tgl_input)
             weton_hasil = hitung_weton(tgl_input)
             zodiak_hasil = hitung_zodiak(tgl_input)
-            
-            # Ambil analisa spesifik dari database
             insight = data_analisa.get(angka_hasil)
         
         st.markdown(f"### 📋 Hasil Mapping: {nama_user}")
@@ -142,15 +155,23 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         
         st.markdown("---")
         
-        # --- HASIL 1: KARAKTER (SUDAH SPESIFIK) ---
+        # --- HASIL 1: KARAKTER (DINAMIS) ---
         st.subheader("💡 Struktur Karakter & Mental")
         st.write(f"Halo **{nama_user}**, sistem mendeteksi filter utama pikiran Anda dipengaruhi pola **{zodiak_hasil}** dengan pondasi energi **{weton_hasil}**.")
         st.info(f"{insight['karakter']}")
 
-        # --- HASIL 2: PERCINTAAN (SUDAH SPESIFIK) ---
+        # --- HASIL 2: PERCINTAAN (DINAMIS & SPESIFIK) ---
         st.subheader("❤️ Pola Hubungan & Asmara")
-        st.write(f"Dalam dinamika hubungan, perpaduan **{zodiak_hasil}** dan **{weton_hasil}** membuat Anda memiliki cara unik dalam mengekspresikan kasih sayang.")
+        
+        # Logika pembuka dinamis agar tidak kaku
+        if angka_hasil % 2 == 0:
+            pembuka_asmara = f"Dalam interaksi intim, sistem nilai **{weton_hasil}** Anda bersinergi dengan karakter **{zodiak_hasil}**, menciptakan gaya afeksi yang unik."
+        else:
+            pembuka_asmara = f"Melihat pola **{zodiak_hasil}** Anda yang dipadukan dengan energi **{weton_hasil}**, sistem menangkap bahwa dalam asmara Anda adalah sosok yang khusus."
+        
+        st.write(pembuka_asmara)
         st.warning(f"**Insight Asmara:** {insight['asmara']}")
+        st.info(f"**Tips Komunikasi NLP ({zodiak_hasil}):** {tips_zodiak_nlp.get(zodiak_hasil)}")
 
         # --- CTA ---
         link_produk = {
@@ -171,26 +192,22 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         st.markdown(f"#### 🔓 Ingin Memprogram Ulang Hidup Anda, {nama_user}?")
         st.link_button(f"👉 DOWNLOAD MODUL TRANSFORMASI (KODE {angka_hasil})", url_tujuan, type="primary")
 
-        # --- BAGIAN FAQ ---
+        # --- FAQ ---
         st.markdown("---")
-        st.subheader("❓ Pertanyaan Sering Diajukan (FAQ)")
-        
+        st.subheader("❓ FAQ")
         with st.expander("Apakah ini sama dengan ramalan nasib?"):
-            st.write("Bukan. Analisa ini menggunakan data personal sebagai 'pintu masuk' untuk memetakan pola pikiran bawah sadar Anda. NLP fokus pada bagaimana Anda mengolah informasi.")
-            
-        with st.expander("Kenapa hasilnya bisa berbeda dengan zodiak/weton biasa?"):
-            st.write("Karena Ahmad Septian menggabungkan ketiga variabel tersebut untuk melihat 'Meta-Program' yang lebih spesifik.")
+            st.write("Bukan. Analisa ini memetakan pola pikiran bawah sadar menggunakan NLP.")
 
-        # --- BAGIAN DISCLAIMER ---
+        # --- DISCLAIMER ---
         st.markdown("---")
-        with st.expander("⚖️ Disclaimer & Batasan Layanan"):
-            st.caption("Analisa ini bertujuan sebagai alat edukasi dan refleksi diri, bukan diagnosis medis.")
+        with st.expander("⚖️ Disclaimer"):
+            st.caption("Analisa ini bersifat edukatif, bukan diagnosis medis/psikologis klinis.")
 
         # --- INTEGRASI WHATSAPP ---
         phone_number = "628999771486" 
         wa_text = (
-            f"Halo Coach Ahmad, saya {nama_user}. Saya baru saja mencoba Persona-NLP Analis dengan hasil Kode {angka_hasil}. "
-            "Ulasan karakter dan asmaranya sangat akurat! Saya tertarik untuk konsultasi lebih dalam. Boleh dibantu jadwalnya?"
+            f"Halo Coach Ahmad, saya {nama_user}. Hasil mapping saya adalah Kode {angka_hasil}. "
+            f"Insight asmara dan karakter tadi sangat relatable! Boleh tanya lebih lanjut soal jadwal sesi?"
         )
         encoded_wa = urllib.parse.quote(wa_text)
         wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
@@ -199,23 +216,10 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #f0f2f6; border-radius: 15px;">
                 <h4 style="color: #1f1f1f; margin-bottom: 15px;">Butuh Kalibrasi Pikiran Lebih Dalam?</h4>
                 <a href="{wa_link}" target="_blank" style="text-decoration: none;">
-                    <button style="
-                        width: 100%;
-                        background-color: #25D366;
-                        color: white;
-                        padding: 16px;
-                        border: none;
-                        border-radius: 12px;
-                        font-weight: bold;
-                        cursor: pointer;
-                        font-size: 18px;
-                        box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.3);">
+                    <button style="width: 100%; background-color: #25D366; color: white; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.3);">
                         💬 Maksimalkan Potensi NLP Saya
                     </button>
                 </a>
-                <p style="font-size: 13px; color: #666; margin-top: 12px;">
-                    Konsultasi langsung dengan Coach Ahmad Septian
-                </p>
             </div>
             """, unsafe_allow_html=True)
 

@@ -82,6 +82,55 @@ tips_zodiak_nlp = {
     "Pisces": "Bedakan antara imajinasi dengan kenyataan agar tidak mudah kecewa."
 }
 
+# --- DATABASE CLOSING BRUTAL (DINAMIS PER ARKETIPE) ---
+closing_brutal_dinamis = {
+    1: [
+        "Terus menunda karena merasa 'belum sempurna' atau takut gagal",
+        "Merasa sendirian memikul beban karena sulit percaya pada orang lain",
+        "Punya ambisi besar, tapi stuck karena meng-sabotase diri sendiri (Self-Sabotage)"
+    ],
+    2: [
+        "Terjebak memuaskan orang lain (People Pleasing) hingga mengorbankan diri sendiri",
+        "Merasa lelah dan tidak dihargai, tapi takut untuk berkata 'TIDAK'",
+        "Terus memendam emosi demi menghindari konflik, yang akhirnya menjadi bom waktu"
+    ],
+    3: [
+        "Memiliki banyak ide brilian, tapi jarang ada yang selesai sampai tuntas",
+        "Mudah teralihkan fokusnya (Shiny Object Syndrome) dan cepat merasa bosan",
+        "Menutupi kegelisahan sejati di balik candaan, merasa kosong di dalam"
+    ],
+    4: [
+        "Stres berat jika rencana berubah atau berhadapan dengan ketidakpastian",
+        "Stuck dalam rutinitas yang kaku dan takut mengambil risiko baru",
+        "Sering dinilai kaku atau kurang empati karena terlalu fokus pada logika/aturan"
+    ],
+    5: [
+        "Terus berlari dari satu hal ke hal lain tanpa membangun fondasi yang kuat",
+        "Merasa cepat 'tercekik' oleh rutinitas dan melarikan diri dari komitmen",
+        "Sulit fokus pada satu tujuan jangka panjang karena mudah bosan"
+    ],
+    6: [
+        "Kehabisan energi karena selalu sibuk 'mengurus' dan menyelamatkan orang lain",
+        "Cenderung over-controlling karena rasa takut atau khawatir yang berlebihan",
+        "Merasa bersalah jika harus memprioritaskan diri sendiri (kurang Self-Love)"
+    ],
+    7: [
+        "Terjebak dalam pikiran sendiri (Overthinking) dan sulit mengambil tindakan nyata",
+        "Merasa terisolasi karena merasa tidak ada orang yang sefrekuensi secara intelektual",
+        "Terlalu lama menganalisa keadaan tanpa eksekusi yang menghasilkan perubahan"
+    ],
+    8: [
+        "Merasa hampa meskipun sudah mencapai banyak target material",
+        "Terlihat dingin, otoriter, dan menciptakan jarak emosional dengan orang terdekat",
+        "Burnout karena tekanan untuk selalu kuat dan menang setiap saat"
+    ],
+    9: [
+        "Sering kecewa karena standar moral Anda terlalu tinggi untuk dunia nyata",
+        "Mengizinkan orang yang toksik/salah menetap terlalu lama karena rasa kasihan",
+        "Punya visi mulia, tapi kewalahan untuk mengeksekusinya di dunia nyata"
+    ]
+}
+
 # --- FUNGSI LOGIKA PERHITUNGAN ---
 def hitung_angka(tanggal):
     tgl_str = tanggal.strftime("%d%m%Y")
@@ -159,6 +208,7 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
             zodiak_hasil = hitung_zodiak(tgl_input)
             insight = data_analisa.get(angka_hasil)
             arketipe = get_arketipe(angka_hasil)
+            pain_points = closing_brutal_dinamis.get(angka_hasil, ["Terjebak dalam pola yang sama", "Merasa stuck", "Butuh perubahan"])
         
         st.markdown(f"### 📋 Hasil Mapping: {nama_user}")
         st.divider()
@@ -170,14 +220,13 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         
         st.markdown("---")
         
-        # --- HASIL 1: KARAKTER (DINAMIS) ---
+        # --- HASIL 1: KARAKTER ---
         st.subheader("💡 Struktur Karakter & Mental")
         st.write(f"Halo **{nama_user}**, sistem mendeteksi filter utama pikiran Anda dipengaruhi pola **{zodiak_hasil}** dengan pondasi energi **{weton_hasil}**.")
         st.info(f"{insight['karakter']}")
 
-        # --- HASIL 2: PERCINTAAN (DINAMIS & SPESIFIK) ---
+        # --- HASIL 2: PERCINTAAN ---
         st.subheader("❤️ Pola Hubungan & Asmara")
-        
         if angka_hasil % 2 == 0:
             pembuka_asmara = f"Dalam interaksi intim, sistem nilai **{weton_hasil}** Anda bersinergi dengan karakter **{zodiak_hasil}**, menciptakan gaya afeksi yang unik."
         else:
@@ -188,7 +237,7 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
         st.info(f"**Tips Komunikasi NLP ({zodiak_hasil}):** {tips_zodiak_nlp.get(zodiak_hasil)}")
 
         # ==============================
-        # 🔥 CLOSING BRUTAL (FIXED)
+        # 🔥 CLOSING BRUTAL (DINAMIS)
         # ==============================
         st.markdown("---")
 
@@ -198,23 +247,23 @@ if st.button("Mulai Pemetaan Internal", type="primary"):
 Pola arketipe **{arketipe}** Anda saat ini belum berjalan maksimal.
 """)
 
-        st.markdown("""
-**Anda mungkin:**
-- Mengulang pola hambatan yang sama
-- Merasa *stuck* di titik yang itu-itu saja
-- Tahu harus berubah… tapi tidak ada perubahan nyata
+        st.markdown(f"""
+**Karena hambatan mental (Mental Block), Anda mungkin sering:**
+- {pain_points[0]}
+- {pain_points[1]}
+- {pain_points[2]}
 """)
 
         st.warning("""
-👉 **Mau tetap seperti ini?** atau  
-👉 **Siap upgrade diri sekarang?**
+👉 **Mau tetap membiarkan pola merusak ini terjadi?** atau  
+👉 **Siap melakukan Re-Programming sekarang?**
 """)
 
         st.success(f"""
-Arketipe **{arketipe}** punya potensi luar biasa besar.
+Arketipe **{arketipe}** punya potensi luar biasa besar jika filternya dibersihkan.
 
-Tapi tanpa di-*reprogram* dan diarahkan...  
-Itu bisa jadi pola mental yang membelenggu seumur hidup.
+Tapi tanpa di-kalibrasi dan diarahkan...  
+Itu bisa jadi pola penjara mental yang membelenggu seumur hidup.
 """)
 
         # --- CTA ---
@@ -236,49 +285,29 @@ Itu bisa jadi pola mental yang membelenggu seumur hidup.
         st.markdown(f"#### 🔓 Kuasai 'Remote Control' Pikiran Bawah Sadar Anda Sekarang, {nama_user}!")
         st.link_button(f"👉 DOWNLOAD MODUL TRANSFORMASI (KODE {angka_hasil})", url_tujuan, type="primary")
 
-        # --- BAGIAN FAQ (PRE-TALK & EDUCATIONAL) ---
+        # --- BAGIAN FAQ & DISCLAIMER ---
         st.markdown("---")
         st.subheader("❓ Pertanyaan Terkait Pemetaan")
-        
         with st.expander("Bagaimana sistem ini membedah struktur pikiran saya?"):
-            st.write("""
-            Sistem **Persona-NLP Analis** menggunakan integrasi data kronologis (tanggal lahir) sebagai *pintu masuk* untuk mengidentifikasi 
-            **Meta-Program** atau filter dominan dalam pikiran bawah sadar Anda. Ini bukan ramalan nasib, melainkan pemetaan 
-            kecenderungan perilaku (*behavioral patterns*) dan gaya pemrosesan informasi (*VAK Model*) Anda.
-            """)
-            
+            st.write("Sistem **Persona-NLP Analis** menggunakan integrasi data kronologis sebagai *pintu masuk* untuk mengidentifikasi **Meta-Program** atau filter dominan bawah sadar Anda.")
         with st.expander("Kenapa akurasinya terasa sangat personal?"):
-            st.write("""
-            Karena Coach **Ahmad Septian** menggabungkan tiga variabel fundamental: **Kode Numerik** (Pola Logika), 
-            **Energi Weton** (Kecerdasan Lokal/Intuisi), dan **Pola Zodiak** (Arketipe Karakter). Sinergi ketiga elemen ini 
-            menghasilkan profil psikografis yang jauh lebih akurat dibandingkan analisa satu dimensi.
-            """)
-            
-        with st.expander("Apa langkah selanjutnya setelah mengetahui 'Kode Program' ini?"):
-            st.write("""
-            Mengetahui adalah langkah awal (Awareness). Langkah selanjutnya adalah melakukan **Re-Programming**. 
-            Anda bisa menggunakan modul transformasi yang disediakan di atas atau melakukan sesi **Deep Calibration** secara *Private* bersama Coach Ahmad untuk membereskan hambatan mental (*Limiting Belief*) yang terdeteksi.
-            """)
+            st.write("Karena Coach **Ahmad Septian** menggabungkan Kode Numerik, Energi Weton, dan Pola Zodiak menjadi satu profil psikografis yang utuh.")
+        with st.expander("Apa langkah selanjutnya setelah ini?"):
+            st.write("Langkah selanjutnya adalah **Re-Programming**. Gunakan modul transformasi atau ikuti sesi **Deep Calibration** bersama Coach Ahmad.")
 
-        # --- BAGIAN DISCLAIMER (PROFESSIONAL LEGAL) ---
         st.markdown("---")
         with st.expander("⚖️ Disclaimer & Batasan Layanan"):
             st.caption(f"""
-            **PEMBERITAHUAN PENTING:** Analisa **Persona-NLP Analis** ini dirancang murni untuk tujuan edukasi, pengembangan diri, dan refleksi pribadi. 
-            Hasil analisa ini bukan merupakan diagnosis medis, psikiatri, atau layanan psikologi klinis. 
-            
-            Segala keputusan, tindakan, atau perubahan hidup yang diambil oleh **{nama_user}** setelah membaca analisa ini 
-            adalah tanggung jawab pribadi sepenuhnya. Layanan ini bertujuan untuk memberikan sudut pandang baru dalam 
-            memahami struktur pikiran, namun tidak menggantikan saran dari tenaga medis profesional jika diperlukan.
-            
+            Analisa ini dirancang murni untuk edukasi dan refleksi pribadi, bukan diagnosis psikologi klinis. 
+            Segala tindakan yang diambil oleh **{nama_user}** adalah tanggung jawab pribadi.
             © 2026 Neuro Nada - Ahmad Septian Dwi Cahyo.
             """)
 
         # --- INTEGRASI WHATSAPP ---
         phone_number = "628999771486" 
         wa_text = (
-            f"Halo Coach Ahmad, saya {nama_user}. Hasil mapping saya adalah Kode {angka_hasil}. "
-            f"Insight asmara dan karakter tadi sangat relatable! Boleh tanya lebih lanjut soal jadwal sesi?"
+            f"Halo Coach Ahmad, saya {nama_user}. Hasil mapping saya adalah Kode {angka_hasil} ({arketipe}). "
+            f"Insight asmara dan bagian yang 'stuck' tadi bener-bener ngena banget! Boleh info untuk jadwal sesi kalibrasi privat?"
         )
         encoded_wa = urllib.parse.quote(wa_text)
         wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
@@ -288,17 +317,4 @@ Itu bisa jadi pola mental yang membelenggu seumur hidup.
                 <h4 style="color: #1f1f1f; margin-bottom: 15px;">Butuh Sesi Deep Calibration?</h4>
                 <p style="font-size: 14px; color: #444; margin-bottom: 20px;">Bersihkan hambatan mental dan instal pola pikir baru bersama Coach Ahmad Septian.</p>
                 <a href="{wa_link}" target="_blank" style="text-decoration: none;">
-                    <button style="width: 100%; background-color: #25D366; color: white; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.3);">
-                        💬 Konsultasi via WhatsApp
-                    </button>
-                </a>
-            </div>
-            """, unsafe_allow_html=True)
-
-# --- FOOTER ---
-st.markdown("---")
-st.markdown(
-    "<center><b>Ahmad Septian Dwi Cahyo</b><br>"
-    "<small>Certified NLP Trainer & Professional Hypnotherapist</small></center>", 
-    unsafe_allow_html=True
-)
+                    <button style="width: 100%; background-color: #25D366; color: white; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0px 4px 12px

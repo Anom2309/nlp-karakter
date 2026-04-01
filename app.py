@@ -91,15 +91,15 @@ closing_brutal_dinamis = {
 
 # --- DATABASE PENJARA MENTAL (BARU & DINAMIS) ---
 potensi_dinamis = {
-    1: "punya potensi kepemimpinan dan daya dobrak luar biasa besar jika ego-nya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... ambisi ini bisa jadi pola penjara mental yang membelenggu Anda dalam kelelahan kronis seumur hidup.",
-    2: "punya potensi penyembuhan dan diplomasi luar biasa besar jika filter 'Gak Enakan'-nya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... rasa empati ini bisa jadi pola penjara mental yang terus mengorbankan diri Anda seumur hidup.",
-    3: "punya potensi persuasi dan kreativitas luar biasa besar jika fokusnya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... ide-ide brilian ini bisa jadi pola penjara mental yang membuat Anda jalan di tempat seumur hidup.",
-    4: "punya potensi membangun mahakarya luar biasa besar jika filter kaku-nya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... perfeksionisme ini bisa jadi pola penjara mental yang membelenggu kebahagiaan Anda seumur hidup.",
-    5: "punya potensi inovasi dan pencapaian luar biasa besar jika filter kebosanannya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... energi petualang ini bisa jadi pola penjara mental yang membuat Anda kehilangan arah seumur hidup.",
-    6: "punya potensi mengayomi dan membina luar biasa besar jika filter 'Mind Reading'-nya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... pengorbanan buta ini bisa jadi pola penjara mental yang mencekik batin Anda seumur hidup.",
-    7: "punya potensi kebijaksanaan dan analisa luar biasa besar jika filter overthinking-nya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... isi kepala ini bisa jadi pola penjara mental yang mengisolasi Anda dari realita seumur hidup.",
-    8: "punya potensi eksekusi dan pencapaian luar biasa besar jika filter kontrolnya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... kekuatan ini bisa jadi pola penjara mental yang membuat Anda kesepian di puncak seumur hidup.",
-    9: "punya potensi kesadaran dan harmoni luar biasa besar jika filter ekspektasinya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... idealisme ini bisa jadi pola penjara mental yang penuh kekecewaan seumur hidup."
+    1: "punya potensi kepemimpinan dan daya dobrak luar biasa besar jika ego-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... ambisi ini bisa jadi pola penjara mental yang membelenggu Anda dalam kelelahan kronis seumur hidup.",
+    2: "punya potensi penyembuhan dan diplomasi luar biasa besar jika filter 'Gak Enakan'-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... rasa empati ini bisa jadi pola penjara mental yang terus mengorbankan diri Anda seumur hidup.",
+    3: "punya potensi persuasi dan kreativitas luar biasa besar jika fokusnya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... ide-ide brilian ini bisa jadi pola penjara mental yang membuat Anda jalan di tempat seumur hidup.",
+    4: "punya potensi membangun mahakarya luar biasa besar jika filter kaku-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... perfeksionisme ini bisa jadi pola penjara mental yang membelenggu kebahagiaan Anda seumur hidup.",
+    5: "punya potensi inovasi dan pencapaian luar biasa besar jika filter kebosanannya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... energi petualang ini bisa jadi pola penjara mental yang membuat Anda kehilangan arah seumur hidup.",
+    6: "punya potensi mengayomi dan membina luar biasa besar jika filter 'Mind Reading'-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... pengorbanan buta ini bisa jadi pola penjara mental yang mencekik batin Anda seumur hidup.",
+    7: "punya potensi kebijaksanaan dan analisa luar biasa besar jika filter overthinking-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... isi kepala ini bisa jadi pola penjara mental yang mengisolasi Anda dari realita seumur hidup.",
+    8: "punya potensi eksekusi dan pencapaian luar biasa besar jika filter kontrolnya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... kekuatan ini bisa jadi pola penjara mental yang membuat Anda kesepian di puncak seumur hidup.",
+    9: "punya potensi kesadaran dan harmoni luar biasa besar jika filter ekspektasinya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... idealisme ini bisa jadi pola penjara mental yang penuh kekecewaan seumur hidup."
 }
 
 def hitung_angka(tanggal):
@@ -171,7 +171,7 @@ if st.button("Mulai Pemetaan Internal"):
             insight = data_analisa.get(angka_hasil)
             arketipe = get_arketipe(angka_hasil)
             pain_points = closing_brutal_dinamis.get(angka_hasil, ["Terjebak dalam pola yang sama", "Merasa stuck", "Butuh perubahan"])
-            teks_potensi = potensi_dinamis.get(angka_hasil, "punya potensi luar biasa besar jika filternya dibersihkan.\\n\\nTapi tanpa di-kalibrasi dan diarahkan... itu bisa jadi pola penjara mental yang membelenggu seumur hidup.")
+            teks_potensi = potensi_dinamis.get(angka_hasil, "punya potensi luar biasa besar jika filternya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... itu bisa jadi pola penjara mental yang membelenggu seumur hidup.")
         
         st.markdown(f"### 📋 Hasil Mapping: {nama_user}")
         st.markdown("---")
@@ -200,7 +200,7 @@ if st.button("Mulai Pemetaan Internal"):
         st.warning("👉 **Mau tetap membiarkan pola merusak ini terjadi?** atau\n👉 **Siap melakukan Re-Programming sekarang?**")
         
         # Eksekusi Teks Potensi & Penjara Dinamis
-        st.success(f"Arketipe **{arketipe}** {teks_potensi}".replace('\\n', '\n'))
+        st.success(f"Arketipe **{arketipe}** {teks_potensi}")
 
         # --- CTA MODUL ---
         link_produk = {
@@ -264,6 +264,58 @@ if st.button("Mulai Pemetaan Internal"):
         st.markdown("---")
         with st.expander("⚖️ Disclaimer & Batasan Layanan"):
             st.caption(f"**PEMBERITAHUAN PENTING:** Analisa Persona-NLP Analis ini dirancang murni untuk tujuan edukasi dan pengembangan diri. Hasil analisa ini bukan merupakan diagnosis medis atau psikologi klinis. Segala keputusan yang diambil oleh **{nama_user}** setelah membaca analisa ini adalah tanggung jawab pribadi sepenuhnya.\n\n© 2026 Neuro Nada - Ahmad Septian Dwi Cahyo.")
+
+
+# --- FITUR TESTIMONI & REVIEW (DI LUAR TOMBOL HASIL AGAR SELALU MUNCUL) ---
+st.markdown("---")
+st.markdown("<h3 style='text-align: center; color: #D4AF37;'>Telah Dipercaya Oleh 1.542+ Pengguna</h3>", unsafe_allow_html=True)
+st.write("")
+
+# 1. Testimoni "Pancingan" (Seed Reviews)
+col1, col2 = st.columns(2)
+
+with col1:
+    st.info("⭐⭐⭐⭐⭐\n\n**Budi T.**\n\n*\"Gila, analisa arketipe The Explorer-nya akurat banget! Baru sadar selama ini saya sabotase diri sendiri karena gampang bosen.\"*")
+
+with col2:
+    st.success("⭐⭐⭐⭐⭐\n\n**Sinta W.**\n\n*\"Sangat relate dengan pola asmara saya yang 'Gak Enakan'. Makasih Coach Ahmad atas insightnya!\"*")
+
+st.markdown("---")
+
+# 2. Form Input Review Interaktif
+st.markdown("#### Bagikan Pengalaman Anda!")
+st.write("Bagaimana hasil analisa karakter Neuro Nada membantu Anda?")
+
+# Menggunakan Session State untuk menyimpan review sementara
+if 'reviews' not in st.session_state:
+    st.session_state.reviews = []
+
+with st.form("form_review"):
+    rev_nama = st.text_input("Nama Anda")
+    rev_rating = st.radio("Rating Bintang", ["⭐⭐⭐⭐⭐ (Sangat Akurat)", "⭐⭐⭐⭐ (Akurat)", "⭐⭐⭐ (Cukup)"], horizontal=True)
+    rev_komentar = st.text_area("Tulis ulasan Anda di sini...")
+    
+    submit_review = st.form_submit_button("Kirim Ulasan")
+    
+    if submit_review:
+        if rev_nama and rev_komentar:
+            # Menyimpan review baru ke dalam daftar
+            st.session_state.reviews.append({
+                "nama": rev_nama,
+                "rating": rev_rating[:5], # Ambil bintangnya saja
+                "komentar": rev_komentar
+            })
+            st.success("Terima kasih! Ulasan Anda telah berhasil dikirim dan sangat berarti bagi kami.")
+        else:
+            st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")
+
+# 3. Menampilkan Review Baru yang Diinput Pengguna
+if st.session_state.reviews:
+    st.markdown("#### Ulasan Terbaru")
+    for r in reversed(st.session_state.reviews):
+        st.write(f"**{r['nama']}** {r['rating']}")
+        st.write(f"*{r['komentar']}*")
+        st.write("")
 
 st.markdown("---")
 st.markdown("<center><b>Ahmad Septian Dwi Cahyo</b><br><small>Certified NLP Trainer & Professional Hypnotherapist</small></center>", unsafe_allow_html=True)

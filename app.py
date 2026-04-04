@@ -78,27 +78,6 @@ if os.path.exists("banner.jpg"):
     except:
         st.write("🔄 Sedang memproses visual banner...")
 
-# 2. Tampilkan Logo Kecil di Tengah (Hanya jika baru.jpg benar-benar gambar)
-if os.path.exists("baru.jpg"):
-    try:
-        col1, col2, col3 = st.columns([3, 1, 3])
-        with col2:
-            st.image("baru.jpg.png", use_container_width=True)
-    except:
-        pass # Lewati kalau file baru.jpg ternyata bukan gambar valid
-
-# 3. Teks Judul Utama (WAJIB MUNCUL)
-st.markdown("<h1 style='text-align: center; margin-top: -10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)
-
-st.markdown("---")# --- INTERFACE UTAMA & BANNER ---
-# 1. Tampilkan Banner Full (Jika file banner.jpg ada)
-if os.path.exists("banner.jpg"):
-    try:
-        st.image("banner.jpg", use_container_width=True)
-    except:
-        st.write("🔄 Sedang memproses visual banner...")
-
 # 2. Teks Judul Utama (Langsung muncul di bawah banner)
 st.markdown("<h1 style='text-align: center; margin-top: 10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)

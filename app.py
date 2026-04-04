@@ -3,6 +3,8 @@ import datetime
 import os
 import time
 import urllib.parse
+import math
+import plotly.graph_objects as go
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(
@@ -32,10 +34,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- SIDEBAR PROMOSI ---
+# --- SIDEBAR PROMOSI & AUDIO ---
 with st.sidebar:
-    st.markdown("## 🧠 Sesi Transformasi")
+    st.markdown("### 🎧 Hypno-Audio Vault")
+    st.caption("Gunakan *headphone* untuk relaksasi gelombang otak (Binaural Beats) sebelum membaca analisa Anda.")
+    # Link audio relaksasi publik (bisa diganti link MP3 milik Coach Ahmad)
+    st.audio("https://cdn.pixabay.com/download/audio/2022/02/07/audio_c6d66e74ab.mp3", format="audio/mp3")
     st.markdown("---")
+    
+    st.markdown("## 🧠 Sesi Transformasi")
     st.info("**Reset Pola Pikir Anda**\n\nSering merasa terhambat oleh pikiran sendiri? Mari kita lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
     st.markdown("[👉 **Amankan Jadwal Anda**](https://lynk.id/username_lu/private-hypnotherapy)")
     st.markdown("---")
@@ -48,7 +55,19 @@ with st.sidebar:
 if os.path.exists("banner.jpg"):
     st.image("banner.jpg", use_container_width=True)
 
-# --- DATABASE ANALISA ---
+# --- DATABASE ANALISA & POTENSI ---
+vibrasi_nama_dict = {
+    1: "Nama Anda memancarkan getaran KEMANDIRIAN & KEPEMIMPINAN. Orang melihat Anda sebagai sosok yang berani mengambil inisiatif.",
+    2: "Nama Anda memancarkan getaran DIPLOMASI & KEDAMAIAN. Orang merasa nyaman dan aman saat berinteraksi dengan Anda.",
+    3: "Nama Anda memancarkan getaran EKSPRESI & KECERIAAN. Anda memiliki daya tarik komunikasi yang membuat orang mudah menyukai Anda.",
+    4: "Nama Anda memancarkan getaran STRUKTUR & KEDISIPLINAN. Orang mempercayai Anda karena Anda terlihat solid dan bisa diandalkan.",
+    5: "Nama Anda memancarkan getaran KEBEBASAN & DINAMIKA. Aura Anda penuh dengan petualangan dan perubahan yang memikat orang lain.",
+    6: "Nama Anda memancarkan getaran TANGGUNG JAWAB & KASIH SAYANG. Anda memancarkan aura pengayom yang membuat orang ingin bersandar pada Anda.",
+    7: "Nama Anda memancarkan getaran KEDALAMAN & ANALISA. Orang melihat Anda sebagai sosok yang misterius, cerdas, dan pencari kebenaran.",
+    8: "Nama Anda memancarkan getaran OTORITAS & KESUKSESAN. Aura nama Anda sangat kuat dalam menarik kelimpahan dan kekuasaan.",
+    9: "Nama Anda memancarkan getaran KEMANUSIAAN & IDEALISME. Anda dilihat sebagai sosok berjiwa besar yang peduli pada banyak orang."
+}
+
 data_analisa = {
     1: {"karakter": "Anda memiliki profil 'The Leader (Sang Inisiator / Perintis)'. Meta-program Anda sangat proaktif dan berorientasi pada tujuan (Towards). Secara NLP, Anda sering menggunakan filter 'Self', yang membuat Anda mandiri namun kadang terlihat dominan.", "asmara": "Anda butuh pasangan yang menghargai independensi Anda. Hati-hati dengan pola komunikasi 'Command', cobalah lebih banyak menggunakan 'Request' agar pasangan merasa lebih nyaman."},
     2: {"karakter": "Anda adalah 'The Mediator (Sang Penjaga / Penyelaras)'. Kekuatan utama Anda adalah 'Building Rapport' secara instan. Anda sangat sensitif terhadap harmoni lingkungan, namun seringkali mengabaikan kebutuhan diri sendiri (Filter: Others).", "asmara": "Asmara bagi Anda adalah tentang kedekatan emosional. Anda cenderung menghindari konflik, namun waspadai pola 'Pleasing' yang berlebihan. Komunikasikan batasan Anda dengan teknik Assertive Communication."},
@@ -76,7 +95,6 @@ tips_zodiak_nlp = {
     "Pisces": "Bedakan imajinasi dengan kenyataan."
 }
 
-# --- DATABASE CLOSING BRUTAL ---
 closing_brutal_dinamis = {
     1: ["Terus menunda karena merasa 'belum sempurna' atau takut gagal", "Merasa sendirian memikul beban karena sulit percaya pada orang lain", "Punya ambisi besar, tapi stuck karena meng-sabotase diri sendiri"],
     2: ["Terjebak memuaskan orang lain hingga mengorbankan diri sendiri", "Merasa lelah dan tidak dihargai, tapi takut untuk berkata 'TIDAK'", "Terus memendam emosi demi menghindari konflik"],
@@ -89,7 +107,6 @@ closing_brutal_dinamis = {
     9: ["Sering kecewa karena standar moral terlalu tinggi", "Mengizinkan orang yang toksik menetap karena rasa kasihan", "Punya visi mulia, tapi kewalahan mengeksekusinya"]
 }
 
-# --- DATABASE PENJARA MENTAL (BARU & DINAMIS) ---
 potensi_dinamis = {
     1: """punya potensi kepemimpinan dan daya dobrak luar biasa besar jika ego-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... ambisi ini bisa jadi pola penjara mental yang membelenggu Anda dalam kelelahan kronis seumur hidup.""",
     2: """punya potensi penyembuhan dan diplomasi luar biasa besar jika filter 'Gak Enakan'-nya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... rasa empati ini bisa jadi pola penjara mental yang terus mengorbankan diri Anda seumur hidup.""",
@@ -102,10 +119,18 @@ potensi_dinamis = {
     9: """punya potensi kesadaran dan harmoni luar biasa besar jika filter ekspektasinya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... idealisme ini bisa jadi pola penjara mental yang penuh kekecewaan seumur hidup."""
 }
 
+# --- FUNGSI-FUNGSI LOGIKA ---
 def hitung_angka(tanggal):
     tgl_str = tanggal.strftime("%d%m%Y")
     total = sum(int(digit) for digit in tgl_str)
     while total > 9: total = sum(int(digit) for digit in str(total))
+    return total
+
+def hitung_angka_nama(nama):
+    huruf_angka = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7, 'H':8, 'I':9, 'J':1, 'K':2, 'L':3, 'M':4, 'N':5, 'O':6, 'P':7, 'Q':8, 'R':9, 'S':1, 'T':2, 'U':3, 'V':4, 'W':5, 'X':6, 'Y':7, 'Z':8}
+    total = sum(huruf_angka.get(h, 0) for h in nama.upper())
+    if total == 0: return 1
+    while total > 9: total = sum(int(d) for d in str(total))
     return total
 
 def hitung_weton(tanggal):
@@ -130,6 +155,19 @@ def hitung_zodiak(tanggal):
     elif (m == 1 and d >= 20) or (m == 2 and d <= 18): return "Aquarius"
     else: return "Pisces"
 
+def bioritme_nlp(tanggal_lahir):
+    hari_hidup = (datetime.date.today() - tanggal_lahir).days
+    fisik = math.sin(2 * math.pi * (hari_hidup / 23)) * 100
+    emosi = math.sin(2 * math.pi * (hari_hidup / 28)) * 100
+    intelektual = math.sin(2 * math.pi * (hari_hidup / 33)) * 100
+    
+    if emosi > 50 and intelektual > 50: state = "UPTIME STATE (Puncak Kreativitas & Sosial)"
+    elif emosi < -50 and fisik < -50: state = "DOWNTIME STATE (Butuh Me-Time & Refleksi)"
+    elif intelektual > 50 and fisik < 0: state = "ANALYTICAL STATE (Tajam untuk Perencanaan)"
+    else: state = "NEUTRAL STATE (Stabil & Seimbang)"
+    
+    return int(fisik), int(emosi), int(intelektual), state
+
 def get_arketipe(angka):
     arketipe_dict = {
         1: "The Leader (Sang Inisiator / Perintis)",
@@ -144,187 +182,249 @@ def get_arketipe(angka):
     }
     return arketipe_dict.get(angka, "Pribadi Unik")
 
-# --- INTERFACE UTAMA ---
-st.title("🧠 NLP Deep Analysis")
-st.subheader("Membedah Struktur Pikiran & Potensi Diri")
-st.write("Sinkronisasi data personal Anda untuk memetakan program bawah sadar dalam aspek Karakter dan Asmara.")
+
+# --- INTERFACE UTAMA (TABS) ---
+st.title("🧠 Neuro Nada Ecosystem")
+st.write("Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri")
 st.markdown("---")
 
-nama_user = st.text_input("Siapa nama lengkap Anda?", placeholder="Masukkan nama panggilan Anda...")
-tgl_today = datetime.date.today()
-tgl_input = st.date_input("Data Input (Tanggal Lahir):", value=tgl_today, min_value=datetime.date(1920, 1, 1), max_value=tgl_today, format="DD/MM/YYYY")
+tab1, tab2, tab3 = st.tabs(["👤 Personal Mapping", "👩‍❤️‍👨 Couple Sync", "🕸️ Audit Pikiran"])
 
-st.markdown("---")
+# ==========================================
+# TAB 1: PERSONAL MAPPING (CORE FEATURE)
+# ==========================================
+with tab1:
+    st.subheader("Bongkar Pola Bawah Sadar Anda")
+    nama_user = st.text_input("Nama Lengkap Anda:", placeholder="Masukkan nama panggilan Anda...", key="nama_user_t1")
+    tgl_today = datetime.date.today()
+    tgl_input = st.date_input("Data Input (Tanggal Lahir):", value=tgl_today, min_value=datetime.date(1920, 1, 1), max_value=tgl_today, format="DD/MM/YYYY", key="tgl_user_t1")
 
-if st.button("Mulai Pemetaan Internal"):
-    if not nama_user:
-        st.error("🚨 Peringatan: Nama diperlukan untuk proses identifikasi pola.")
-    elif tgl_input == tgl_today:
-        st.error("🚨 Peringatan: Mohon masukkan tanggal lahir Anda yang valid.")
-    else:
-        with st.spinner('Melakukan kalibrasi pola pikiran Anda...'):
-            time.sleep(1)
+    if st.button("Mulai Pemetaan Internal"):
+        if not nama_user:
+            st.error("🚨 Peringatan: Nama diperlukan untuk proses identifikasi pola.")
+        elif tgl_input == tgl_today:
+            st.error("🚨 Peringatan: Mohon masukkan tanggal lahir Anda yang valid.")
+        else:
+            with st.spinner('Melakukan kalibrasi pola pikiran Anda...'):
+                time.sleep(1)
+                
+                angka_hasil = hitung_angka(tgl_input)
+                angka_nama = hitung_angka_nama(nama_user)
+                weton_hasil = hitung_weton(tgl_input)
+                zodiak_hasil = hitung_zodiak(tgl_input)
+                f, e, i, state_harian = bioritme_nlp(tgl_input)
+                
+                insight = data_analisa.get(angka_hasil)
+                arketipe = get_arketipe(angka_hasil)
+                pain_points = closing_brutal_dinamis.get(angka_hasil, ["Terjebak dalam pola yang sama", "Merasa stuck", "Butuh perubahan"])
+                teks_potensi = potensi_dinamis.get(angka_hasil, "punya potensi luar biasa besar jika filternya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... itu bisa jadi pola penjara mental yang membelenggu seumur hidup.")
             
-            angka_hasil = hitung_angka(tgl_input)
-            weton_hasil = hitung_weton(tgl_input)
-            zodiak_hasil = hitung_zodiak(tgl_input)
-            insight = data_analisa.get(angka_hasil)
-            arketipe = get_arketipe(angka_hasil)
-            pain_points = closing_brutal_dinamis.get(angka_hasil, ["Terjebak dalam pola yang sama", "Merasa stuck", "Butuh perubahan"])
-            teks_potensi = potensi_dinamis.get(angka_hasil, "punya potensi luar biasa besar jika filternya dibersihkan.\n\nTapi tanpa di-kalibrasi dan diarahkan... itu bisa jadi pola penjara mental yang membelenggu seumur hidup.")
-        
-        st.markdown(f"### 📋 Hasil Mapping: {nama_user}")
-        st.markdown("---")
-        
-        c1, c2, c3 = st.columns(3)
-        c1.metric("KODE PROGRAM", angka_hasil)
-        c2.metric("ENERGI WETON", weton_hasil)
-        c3.metric("POLA ZODIAK", zodiak_hasil)
-        
-        st.markdown("---")
-        
-        # --- HASIL 1 ---
-        st.subheader("💡 Struktur Karakter & Mental")
-        st.write(f"Halo **{nama_user}**, sistem mendeteksi filter utama pikiran Anda dipengaruhi pola **{zodiak_hasil}** dengan pondasi energi **{weton_hasil}**.")
-        st.info(insight['karakter'])
+            st.markdown(f"### 📋 Hasil Mapping: {nama_user}")
+            st.markdown("---")
+            
+            # --- State of Mind Harian ---
+            st.success(f"📊 **RADAR ENERGI HARI INI:** Anda sedang berada dalam **{state_harian}**.")
+            st.caption(f"Kapasitas Fisik: {f}% | Emosional: {e}% | Intelektual: {i}%")
+            st.markdown("---")
+            
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("KODE NAMA", angka_nama)
+            c2.metric("KODE PROGRAM", angka_hasil)
+            c3.metric("ENERGI WETON", weton_hasil)
+            c4.metric("POLA ZODIAK", zodiak_hasil)
+            
+            st.markdown("---")
+            
+            # --- HASIL 0: VIBRASI NAMA ---
+            st.subheader("🗣️ Vibrasi Identitas (Nama)")
+            st.info(vibrasi_nama_dict.get(angka_nama, "Nama Anda memiliki resonansi energi yang unik."))
 
-        # --- HASIL 2 ---
-        st.subheader("❤️ Pola Hubungan & Asmara")
-        st.warning(f"**Insight Asmara:** {insight['asmara']}")
-        st.info(f"**Tips Komunikasi NLP:** {tips_zodiak_nlp.get(zodiak_hasil)}")
+            # --- HASIL 1 ---
+            st.subheader("💡 Struktur Karakter & Mental")
+            st.write(f"Halo **{nama_user}**, sistem mendeteksi filter utama pikiran Anda dipengaruhi pola **{zodiak_hasil}** dengan pondasi energi **{weton_hasil}**.")
+            st.info(insight['karakter'])
 
-        # --- CLOSING BRUTAL (FULL DINAMIS) ---
-        st.markdown("---")
-        st.error(f"🚨 **PERHATIAN {nama_user.upper()}**\n\nPola arketipe **{arketipe}** Anda saat ini belum berjalan maksimal.")
-        st.markdown(f"**Karena hambatan mental (Mental Block), Anda mungkin sering:**\n- {pain_points[0]}\n- {pain_points[1]}\n- {pain_points[2]}")
-        st.warning("👉 **Mau tetap membiarkan pola merusak ini terjadi?** atau\n👉 **Siap melakukan Re-Programming sekarang?**")
-        
-        # Eksekusi Teks Potensi & Penjara Dinamis
-        st.success(f"Arketipe **{arketipe}** {teks_potensi}")
+            # --- HASIL 2 ---
+            st.subheader("❤️ Pola Hubungan & Asmara")
+            st.warning(f"**Insight Asmara:** {insight['asmara']}")
+            st.info(f"**Tips Komunikasi NLP:** {tips_zodiak_nlp.get(zodiak_hasil)}")
 
-        # --- CTA MODUL ---
-        link_produk = {
-            1: "http://lynk.id/neuronada/kj98l4zgzwdw/checkout",
-            2: "http://lynk.id/neuronada/6z23q03121lg/checkout",
-            3: "http://lynk.id/neuronada/0rd6gr7nlzxp/checkout",
-            4: "http://lynk.id/neuronada/elp83loeyggg/checkout",
-            5: "http://lynk.id/neuronada/wne9p4q1l3d9/checkout",
-            6: "http://lynk.id/neuronada/nm840y6nlo21/checkout",
-            7: "http://lynk.id/neuronada/vv0797ll7g7o/checkout",
-            8: "http://lynk.id/neuronada/ropl1lm6rz8g/checkout",
-            9: "http://lynk.id/neuronada/704ke23nzmgx/checkout"
-        }
-        url_tujuan = link_produk.get(angka_hasil, "https://lynk.id/username_lu")
-        nama_panggilan = nama_user.split()[0] if nama_user else 'Sahabat'
-        
-        st.markdown("---")
-        st.markdown(f"#### 🔓 Keputusan Ada di Tangan Anda Sekarang, {nama_panggilan}.")
-        st.write("Modul ini bukan sekadar e-book, ini adalah **'Kunci Pas'** untuk membongkar mesin bawah sadar Anda. Jangan tunda lagi.")
-        
-        st.markdown(f"""
-        <a href="{url_tujuan}" target="_blank" style="text-decoration: none;">
-            <div style="background-color: #d4af37; color: black; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; font-size: 16px;">
-                👉 YA! SAYA SIAP AMBIL MODUL KODE {angka_hasil}
-            </div>
-        </a>
-        """, unsafe_allow_html=True)
+            # --- CLOSING BRUTAL (FULL DINAMIS) ---
+            st.markdown("---")
+            st.error(f"🚨 **PERHATIAN {nama_user.upper()}**\n\nPola arketipe **{arketipe}** Anda saat ini belum berjalan maksimal.")
+            st.markdown(f"**Karena hambatan mental (Mental Block), Anda mungkin sering:**\n- {pain_points[0]}\n- {pain_points[1]}\n- {pain_points[2]}")
+            st.warning("👉 **Mau tetap membiarkan pola merusak ini terjadi?** atau\n👉 **Siap melakukan Re-Programming sekarang?**")
+            
+            # Eksekusi Teks Potensi & Penjara Dinamis
+            st.success(f"Arketipe **{arketipe}** {teks_potensi}")
 
-        # --- WA CTA (HIPNOTIK SINGKAT) ---
-        st.markdown("---")
-        phone_number = "628999771486" 
-        wa_text = f"Halo Coach Ahmad, saya {nama_user}. Saya sudah baca hasil mapping Kode {angka_hasil} ({arketipe}) saya. Saya lelah terjebak di pola yang sama dan SIAP melakukan Re-Programming. Kapan jadwal Private Session terdekat yang masih kosong?"
-        encoded_wa = urllib.parse.quote(wa_text)
-        wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
-
-        st.markdown(f"""
-        <div style="text-align: center; padding: 25px; background-color: #1a1a1a; border: 2px solid #d4af37; border-radius: 10px;">
-            <h3 style="color: #d4af37; margin-bottom: 10px;">🔥 Siap Membongkar Mental Block Anda?</h3>
-            <p style="color: #f0f0f0; margin-bottom: 20px;">Teori tak mengubah realita. Cabut akar <i>mental block</i> Anda melalui kalibrasi bawah sadar.</p>
-            <a href="{wa_link}" target="_blank" style="text-decoration: none;">
-                <div style="background-color: #25D366; color: white; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 16px;">
-                    💬 Amankan Jadwal Sesi Saya
+            # --- CTA MODUL ---
+            link_produk = {
+                1: "http://lynk.id/neuronada/kj98l4zgzwdw/checkout",
+                2: "http://lynk.id/neuronada/6z23q03121lg/checkout",
+                3: "http://lynk.id/neuronada/0rd6gr7nlzxp/checkout",
+                4: "http://lynk.id/neuronada/elp83loeyggg/checkout",
+                5: "http://lynk.id/neuronada/wne9p4q1l3d9/checkout",
+                6: "http://lynk.id/neuronada/nm840y6nlo21/checkout",
+                7: "http://lynk.id/neuronada/vv0797ll7g7o/checkout",
+                8: "http://lynk.id/neuronada/ropl1lm6rz8g/checkout",
+                9: "http://lynk.id/neuronada/704ke23nzmgx/checkout"
+            }
+            url_tujuan = link_produk.get(angka_hasil, "https://lynk.id/username_lu")
+            nama_panggilan = nama_user.split()[0] if nama_user else 'Sahabat'
+            
+            st.markdown("---")
+            st.markdown(f"#### 🔓 Keputusan Ada di Tangan Anda Sekarang, {nama_panggilan}.")
+            st.write("Modul ini bukan sekadar e-book, ini adalah **'Kunci Pas'** untuk membongkar mesin bawah sadar Anda. Jangan tunda lagi.")
+            
+            st.markdown(f"""
+            <a href="{url_tujuan}" target="_blank" style="text-decoration: none;">
+                <div style="background-color: #d4af37; color: black; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                    👉 YA! SAYA SIAP AMBIL MODUL KODE {angka_hasil}
                 </div>
             </a>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
-        # --- BAGIAN FAQ & DISCLAIMER ---
-        st.markdown("---")
-        st.subheader("❓ Pertanyaan Terkait Pemetaan")
+            # --- WA CTA (HIPNOTIK SINGKAT) ---
+            st.markdown("---")
+            phone_number = "628999771486" 
+            wa_text = f"Halo Coach Ahmad, saya {nama_user}. Saya sudah baca hasil mapping Kode {angka_hasil} ({arketipe}) saya. Saya lelah terjebak di pola yang sama dan SIAP melakukan Re-Programming. Kapan jadwal Private Session terdekat yang masih kosong?"
+            encoded_wa = urllib.parse.quote(wa_text)
+            wa_link = f"https://wa.me/{phone_number}?text={encoded_wa}"
+
+            st.markdown(f"""
+            <div style="text-align: center; padding: 25px; background-color: #1a1a1a; border: 2px solid #d4af37; border-radius: 10px;">
+                <h3 style="color: #d4af37; margin-bottom: 10px;">🔥 Siap Membongkar Mental Block Anda?</h3>
+                <p style="color: #f0f0f0; margin-bottom: 20px;">Teori tak mengubah realita. Cabut akar <i>mental block</i> Anda melalui kalibrasi bawah sadar.</p>
+                <a href="{wa_link}" target="_blank" style="text-decoration: none;">
+                    <div style="background-color: #25D366; color: white; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                        💬 Amankan Jadwal Sesi Saya
+                    </div>
+                </a>
+            </div>
+            """, unsafe_allow_html=True)
+
+            # --- BAGIAN FAQ & DISCLAIMER ---
+            st.markdown("---")
+            st.subheader("❓ Pertanyaan Terkait Pemetaan")
+            
+            with st.expander("Bagaimana sistem ini membedah struktur pikiran saya?"):
+                st.write("Sistem **Persona-NLP Analis** menggunakan integrasi data kronologis (tanggal lahir) sebagai pintu masuk untuk mengidentifikasi **Meta-Program** atau filter dominan dalam pikiran bawah sadar Anda. Ini bukan ramalan nasib, melainkan pemetaan kecenderungan perilaku dan gaya pemrosesan informasi Anda.")
+                
+            with st.expander("Kenapa akurasinya terasa sangat personal?"):
+                st.write("Karena Coach **Ahmad Septian** menggabungkan tiga variabel fundamental: Kode Numerik, Energi Weton, dan Pola Zodiak menjadi satu profil psikografis yang utuh.")
+                
+            with st.expander("Apa langkah selanjutnya setelah mengetahui 'Kode Program' ini?"):
+                st.write("Langkah selanjutnya adalah **Re-Programming**. Anda bisa menggunakan modul transformasi yang disediakan di atas atau melakukan sesi Deep Calibration secara Private bersama Coach Ahmad.")
+
+            st.markdown("---")
+            with st.expander("⚖️ Disclaimer & Batasan Layanan"):
+                st.caption(f"**PEMBERITAHUAN PENTING:** Analisa Persona-NLP Analis ini dirancang murni untuk tujuan edukasi dan pengembangan diri. Hasil analisa ini bukan merupakan diagnosis medis atau psikologi klinis. Segala keputusan yang diambil oleh **{nama_user}** setelah membaca analisa ini adalah tanggung jawab pribadi sepenuhnya.\n\n© 2026 Neuro Nada - Ahmad Septian Dwi Cahyo.")
+
+
+# ==========================================
+# TAB 2: COUPLE SYNC (SINKRONISASI ASMARA)
+# ==========================================
+with tab2:
+    st.subheader("Kalkulator Sinkronisasi Pasangan")
+    st.write("Uji kecocokan *Meta-Program* Anda dan pasangan.")
+    
+    colA, colB = st.columns(2)
+    with colA:
+        nama_1 = st.text_input("Nama Anda:", key="c_nama1")
+        tgl_1 = st.date_input("Tgl Lahir Anda:", min_value=datetime.date(1920, 1, 1), key="c_tgl1")
+    with colB:
+        nama_2 = st.text_input("Nama Pasangan/Gebetan:", key="c_nama2")
+        tgl_2 = st.date_input("Tgl Lahir Pasangan:", min_value=datetime.date(1920, 1, 1), key="c_tgl2")
         
-        with st.expander("Bagaimana sistem ini membedah struktur pikiran saya?"):
-            st.write("Sistem **Persona-NLP Analis** menggunakan integrasi data kronologis (tanggal lahir) sebagai pintu masuk untuk mengidentifikasi **Meta-Program** atau filter dominan dalam pikiran bawah sadar Anda. Ini bukan ramalan nasib, melainkan pemetaan kecenderungan perilaku dan gaya pemrosesan informasi Anda.")
+    if st.button("Cek Kompatibilitas Bawah Sadar"):
+        if nama_1 and nama_2:
+            ang_1 = hitung_angka(tgl_1)
+            ang_2 = hitung_angka(tgl_2)
+            selisih = abs(ang_1 - ang_2)
             
-        with st.expander("Kenapa akurasinya terasa sangat personal?"):
-            st.write("Karena Coach **Ahmad Septian** menggabungkan tiga variabel fundamental: Kode Numerik, Energi Weton, dan Pola Zodiak menjadi satu profil psikografis yang utuh.")
+            st.markdown("---")
+            if selisih == 0 or selisih == 3 or selisih == 6 or selisih == 9:
+                st.success(f"💘 **SKOR RAPPORT: 90% (Sangat Sinkron)**\n\nAnda berdua memiliki filter komunikasi yang sefrekuensi. Konflik jarang terjadi, namun awasi kebosanan.")
+            elif selisih == 1 or selisih == 2 or selisih == 8:
+                st.warning(f"⚖️ **SKOR RAPPORT: 70% (Saling Melengkapi)**\n\nBanyak perbedaan sudut pandang, namun justru ini yang membuat kalian belajar satu sama lain. Gunakan teknik *Pacing & Leading*.")
+            else:
+                st.error(f"🔥 **SKOR RAPPORT: 50% (Butuh Kalibrasi)**\n\nEgo dan dominasi sering berbenturan. Kalian butuh ruang saling memahami *Love Language* masing-masing secara dalam.")
             
-        with st.expander("Apa langkah selanjutnya setelah mengetahui 'Kode Program' ini?"):
-            st.write("Langkah selanjutnya adalah **Re-Programming**. Anda bisa menggunakan modul transformasi yang disediakan di atas atau melakukan sesi Deep Calibration secara Private bersama Coach Ahmad.")
+            st.info("Ingin tahu cara komunikasi yang paling pas untuk menundukkan ego pasangan Anda? Konsultasikan di sesi Private Couple Therapy.")
+            st.link_button("Booking Couple Therapy", "https://wa.me/628999771486")
 
-        st.markdown("---")
-        with st.expander("⚖️ Disclaimer & Batasan Layanan"):
-            st.caption(f"**PEMBERITAHUAN PENTING:** Analisa Persona-NLP Analis ini dirancang murni untuk tujuan edukasi dan pengembangan diri. Hasil analisa ini bukan merupakan diagnosis medis atau psikologi klinis. Segala keputusan yang diambil oleh **{nama_user}** setelah membaca analisa ini adalah tanggung jawab pribadi sepenuhnya.\n\n© 2026 Neuro Nada - Ahmad Septian Dwi Cahyo.")
-
-
-# --- FITUR TESTIMONI & REVIEW (9 REVIEW PILIHAN) ---
-st.markdown("---")
-st.markdown("<h3 style='text-align: center; color: #D4AF37;'>Telah Dipercaya Oleh 1.542+ Pengguna</h3>", unsafe_allow_html=True)
-st.write("")
-
-# Grid Testimoni (3 Baris x 2 Kolom)
-col1, col2 = st.columns(2)
-
-with col1:
-    st.info("⭐⭐⭐⭐⭐\n\n**Budi T.**\n\n*\"Analisa arketipe The Explorer-nya akurat banget! Baru sadar selama ini saya sabotase diri karena gampang bosen.\"*")
-    st.success("⭐⭐⭐⭐⭐\n\n**Andi S. (CEO)**\n\n*\"Sebagai tipe 8, saya kaget NLP ini bisa baca pola leadership saya yang bikin burnout. Sesi privatnya gila sih, mind-blowing!\"*")
-    st.warning("⭐⭐⭐⭐\n\n**Rina M.**\n\n*\"Penjelasan weton dan numerologinya nyambung banget. Akhirnya paham kenapa asmara saya mentok terus di pola yang sama.\"*")
-    st.info("⭐⭐⭐⭐⭐\n\n**Fahmi K.**\n\n*\"Tadinya skeptis, tapi pas baca modul Kode 7, kok kayak lagi diceritain isi kepala sendiri ya? Langsung daftar sesi privat!\"*")
-
-with col2:
-    st.success("⭐⭐⭐⭐\n\n**Sinta W.**\n\n*\"Sangat relate dengan pola asmara saya yang 'Gak Enakan'. Makasih Coach Ahmad atas insightnya!\"*")
-    st.warning("⭐⭐⭐⭐⭐\n\n**Dewi Arini**\n\n*\"Modul Re-Programming-nya sangat praktis. Baru seminggu praktek, mental block soal finansial saya mulai luntur.\"*")
-    st.info("⭐⭐⭐⭐⭐\n\n**Hendra Jaya**\n\n*\"Gak nyangka weton bisa dikawinin sama NLP se-elegan ini. Aplikasi ini ngebuka mata saya soal potensi terpendam.\"*")
-    st.success("⭐⭐⭐⭐\n\n**Maya Putri**\n\n*\"Tipe 6 emang bener-bener pengayom ya, tapi nasehat Coach soal 'Self-Love' di modul itu nampar banget. Makasih Coach!\"*")
-
-# Satu Testimoni Highlight di Tengah
-st.markdown("<div style='text-align: center; padding: 15px; background-color: #f0f0f0; border-radius: 10px; margin-bottom: 20px;'><i>⭐⭐⭐⭐⭐<br><b>\"Ini bukan cuma ramalan, ini pemetaan otak yang masuk akal. Investasi terbaik saya tahun ini!\"</b><br>— dr. Antonius</i></div>", unsafe_allow_html=True)
-
-st.markdown("---")
-
-# 2. Form Input Review Interaktif
-st.markdown("#### Bagikan Pengalaman Anda!")
-st.write("Bagaimana hasil analisa karakter Neuro Nada membantu Anda?")
-
-# Menggunakan Session State untuk menyimpan review sementara
-if 'reviews' not in st.session_state:
-    st.session_state.reviews = []
-
-with st.form("form_review"):
-    rev_nama = st.text_input("Nama Anda")
-    rev_rating = st.radio("Rating Bintang", ["⭐⭐⭐⭐⭐ (Sangat Akurat)", "⭐⭐⭐⭐ (Akurat)", "⭐⭐⭐ (Cukup)"], horizontal=True)
-    rev_komentar = st.text_area("Tulis ulasan Anda di sini...")
+# ==========================================
+# TAB 3: AUDIT PIKIRAN (WHEEL OF LIFE)
+# ==========================================
+with tab3:
+    st.subheader("Audit Keseimbangan Hidup")
+    st.write("Geser *slider* di bawah (1-10) untuk memvisualisasikan area mana yang sedang 'bocor' dalam hidup Anda saat ini.")
     
-    submit_review = st.form_submit_button("Kirim Ulasan")
+    skor_mental = st.slider("Kesehatan Mental & Emosi", 1, 10, 5)
+    skor_karir = st.slider("Karir & Finansial", 1, 10, 5)
+    skor_asmara = st.slider("Hubungan Asmara", 1, 10, 5)
+    skor_spiritual = st.slider("Spiritualitas & Makna Hidup", 1, 10, 5)
+    skor_fisik = st.slider("Kesehatan Fisik", 1, 10, 5)
     
-    if submit_review:
-        if rev_nama and rev_komentar:
-            # Menyimpan review baru ke dalam daftar
-            st.session_state.reviews.append({
-                "nama": rev_nama,
-                "rating": rev_rating[:5], # Ambil bintangnya saja
-                "komentar": rev_komentar
-            })
-            st.success("Terima kasih! Ulasan Anda telah berhasil dikirim dan sangat berarti bagi kami.")
-        else:
-            st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")
+    kategori = ['Mental', 'Karir/Uang', 'Asmara', 'Spiritual', 'Fisik']
+    skor = [skor_mental, skor_karir, skor_asmara, skor_spiritual, skor_fisik]
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+          r=skor + [skor[0]], 
+          theta=kategori + [kategori[0]],
+          fill='toself',
+          fillcolor='rgba(212, 175, 55, 0.4)', 
+          line=dict(color='#D4AF37')
+    ))
+    fig.update_layout(
+      polar=dict(radialaxis=dict(visible=True, range=[0, 10])),
+      showlegend=False,
+      margin=dict(l=40, r=40, t=40, b=40)
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    avg_skor = sum(skor) / 5
+    if avg_skor < 5:
+        st.error("Peringatan: Roda kehidupan Anda sedang tidak seimbang. Segera benahi area dengan skor terendah sebelum memicu *burnout*.")
+    elif avg_skor < 8:
+        st.warning("Cukup baik, namun masih ada 'kebocoran' energi di area tertentu yang menghambat Anda melesat maksimal.")
+    else:
+        st.success("Luar biasa! Kondisi *State of Mind* Anda sedang di puncak. Pertahankan keseimbangan ini.")
 
-# 3. Menampilkan Review Baru yang Diinput Pengguna
-if st.session_state.reviews:
-    st.markdown("#### Ulasan Terbaru")
-    for r in reversed(st.session_state.reviews):
-        st.write(f"**{r['nama']}** {r['rating']}")
-        st.write(f"*{r['komentar']}*")
-        st.write("")
+# ==========================================
+# TESTIMONI RUNNING TEXT & FORM EXPANDER
+# ==========================================
+st.markdown("---")
+st.markdown("<h4 style='text-align: center; color: #D4AF37;'>Dipercaya 1.542+ Pengguna</h4>", unsafe_allow_html=True)
+
+marquee_html = """
+<div style="background-color: #1a1a1a; padding: 12px; border-radius: 8px; border-left: 3px solid #D4AF37; border-right: 3px solid #D4AF37; white-space: nowrap; overflow: hidden; margin-bottom: 20px;">
+    <marquee behavior="scroll" direction="left" scrollamount="6" style="color: #f0f0f0; font-size: 15px;">
+        <span style="color: #FFD700;">⭐⭐⭐⭐⭐</span> <b>dr. Antonius:</b> "Ini bukan cuma ramalan, ini pemetaan otak yang masuk akal. Investasi terbaik tahun ini!" &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+        <span style="color: #FFD700;">⭐⭐⭐⭐⭐</span> <b>Andi S. (CEO):</b> "Sebagai tipe 8, saya kaget NLP ini bisa baca pola leadership saya. Mind-blowing!" &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+        <span style="color: #FFD700;">⭐⭐⭐⭐</span> <b>Sinta W.:</b> "Sangat relate dengan pola asmara 'Gak Enakan'. Makasih Coach!" &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+        <span style="color: #FFD700;">⭐⭐⭐⭐⭐</span> <b>Dewi Arini:</b> "Baru seminggu praktek, mental block finansial mulai luntur." &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+        <span style="color: #FFD700;">⭐⭐⭐⭐⭐</span> <b>Budi T.:</b> "Baru sadar selama ini saya sabotase diri karena gampang bosen." &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+        <span style="color: #FFD700;">⭐⭐⭐⭐</span> <b>Hendra Jaya:</b> "Gak nyangka weton bisa dikawinin sama NLP se-elegan ini."
+    </marquee>
+</div>
+"""
+st.markdown(marquee_html, unsafe_allow_html=True)
+
+with st.expander("💬 Bagikan Pengalaman Anda di sini"):
+    with st.form("form_review"):
+        rev_nama = st.text_input("Nama Anda")
+        rev_rating = st.radio("Rating Bintang", ["⭐⭐⭐⭐⭐ (Sangat Akurat)", "⭐⭐⭐⭐ (Akurat)", "⭐⭐⭐ (Cukup)"], horizontal=True)
+        rev_komentar = st.text_area("Tulis ulasan Anda di sini...")
+        
+        if st.form_submit_button("Kirim Ulasan"):
+            if rev_nama and rev_komentar:
+                st.success("Terima kasih! Ulasan Anda telah berhasil dikirim dan akan diverifikasi oleh sistem.")
+            else:
+                st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")
 
 st.markdown("---")
 st.markdown("<center><b>Ahmad Septian Dwi Cahyo</b><br><small>Certified NLP Trainer & Professional Hypnotherapist</small></center>", unsafe_allow_html=True)

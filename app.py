@@ -62,18 +62,12 @@ with st.sidebar:
     st.markdown("---")
     st.caption("© 2026 Ahmad Septian Dwi Cahyo")
 
-# --- INTERFACE UTAMA & LOGO ---
-col_logo, col_judul = st.columns([1, 4]) 
-
-with col_logo:
-    if os.path.exists("baru.jpg"):
-        st.image("baru.jpg", width=120)
-    elif os.path.exists("banner.jpg"):
-        st.image("banner.jpg", width=120)
-
-with col_judul:
-    st.markdown("<h1 style='margin-top: -15px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)
+# --- INTERFACE UTAMA & BANNER ---
+if os.path.exists("banner.jpg"):
+    st.image("banner.jpg", use_container_width=True)
+else:
+    st.markdown("<h1 style='text-align: center;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)
 
 st.markdown("---")
 

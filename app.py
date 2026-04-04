@@ -37,10 +37,18 @@ st.markdown(
 
 # --- SIDEBAR PROMOSI & VIDEO ---
 with st.sidebar:
+    # 1. Menampilkan Logo Identitas di Puncak Sidebar (Jika ada)
+    if os.path.exists("baru.jpg.png"):
+        try:
+            st.image("baru.jpg.png", use_container_width=True)
+            st.markdown("<br>", unsafe_allow_html=True) # Jarak pemanis
+        except:
+            pass
+
     st.markdown("### 🎬 Hypno-Video Vault")
     st.caption("Fokuskan pandangan Anda pada video ini sambil menggunakan headphone untuk relaksasi maksimal.")
     
-    # Langsung putar video YouTube dari link Coach Ahmad
+    # Putar video YouTube Coach Ahmad
     st.video("https://youtu.be/kkRcH6aH_lI?si=bpUZF3CWl8DKLw5m")
         
     st.markdown("---")

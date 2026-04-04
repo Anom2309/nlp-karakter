@@ -75,7 +75,7 @@ if os.path.exists("baru.jpg"):
     try:
         col1, col2, col3 = st.columns([3, 1, 3])
         with col2:
-            st.image("baru.jpg", use_container_width=True)
+            st.image("baru.jpg.png", use_container_width=True)
     except:
         pass # Lewati kalau file baru.jpg ternyata bukan gambar valid
 

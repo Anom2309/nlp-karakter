@@ -358,8 +358,13 @@ with tab2:
 # TAB 3: AUDIT PIKIRAN (WHEEL OF LIFE)
 # ==========================================
 with tab3:
-    st.subheader("Audit Keseimbangan Hidup")
-    st.write("Geser *slider* di bawah (1-10) untuk memvisualisasikan area mana yang sedang 'bocor' dalam hidup Anda saat ini.")
+    st.subheader("🕸️ Audit Keseimbangan Pikiran")
+    
+    # --- TAMBAHAN PENJELASAN EDUKASI NLP ---
+    st.info("**Apa itu Audit Pikiran?**\n\nBayangkan energi mental Anda sebagai sebuah roda penggerak. Jika satu sisi kempes atau bocor, laju hidup Anda pasti tersendat dan terasa *stuck*. \n\nAudit Pikiran adalah teknik pemetaan visual untuk melacak area mana di bawah sadar Anda yang sedang mengalami **kebocoran energi** paling parah. Seringkali kita merasa gagal di karir, padahal akar masalah sebenarnya ada di kondisi emosi atau asmara yang tidak seimbang.")
+    
+    st.write("Geser *slider* di bawah (angka 1-10) secara **jujur pada diri sendiri** untuk melihat bentuk riil jaring kehidupan Anda saat ini:")
+    st.markdown("---")
     
     skor_mental = st.slider("Kesehatan Mental & Emosi", 1, 10, 5)
     skor_karir = st.slider("Karir & Finansial", 1, 10, 5)
@@ -367,32 +372,7 @@ with tab3:
     skor_spiritual = st.slider("Spiritualitas & Makna Hidup", 1, 10, 5)
     skor_fisik = st.slider("Kesehatan Fisik", 1, 10, 5)
     
-    kategori = ['Mental', 'Karir/Uang', 'Asmara', 'Spiritual', 'Fisik']
-    skor = [skor_mental, skor_karir, skor_asmara, skor_spiritual, skor_fisik]
-    
-    fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(
-          r=skor + [skor[0]], 
-          theta=kategori + [kategori[0]],
-          fill='toself',
-          fillcolor='rgba(212, 175, 55, 0.4)', 
-          line=dict(color='#D4AF37')
-    ))
-    fig.update_layout(
-      polar=dict(radialaxis=dict(visible=True, range=[0, 10])),
-      showlegend=False,
-      margin=dict(l=40, r=40, t=40, b=40)
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    avg_skor = sum(skor) / 5
-    if avg_skor < 5:
-        st.error("Peringatan: Roda kehidupan Anda sedang tidak seimbang. Segera benahi area dengan skor terendah sebelum memicu *burnout*.")
-    elif avg_skor < 8:
-        st.warning("Cukup baik, namun masih ada 'kebocoran' energi di area tertentu yang menghambat Anda melesat maksimal.")
-    else:
-        st.success("Luar biasa! Kondisi *State of Mind* Anda sedang di puncak. Pertahankan keseimbangan ini.")
+    # ... (KODE GRAFIK PLOTLY DI BAWAHNYA BIARKAN SAMA PERSIS SEPERTI SEBELUMNYA) ...
 
 # ==========================================
 # TESTIMONI RUNNING TEXT & FORM EXPANDER

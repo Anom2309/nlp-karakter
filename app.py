@@ -91,6 +91,18 @@ if os.path.exists("baru.jpg"):
 st.markdown("<h1 style='text-align: center; margin-top: -10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)
 
+st.markdown("---")# --- INTERFACE UTAMA & BANNER ---
+# 1. Tampilkan Banner Full (Jika file banner.jpg ada)
+if os.path.exists("banner.jpg"):
+    try:
+        st.image("banner.jpg", use_container_width=True)
+    except:
+        st.write("🔄 Sedang memproses visual banner...")
+
+# 2. Teks Judul Utama (Langsung muncul di bawah banner)
+st.markdown("<h1 style='text-align: center; margin-top: 10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #D4AF37;'>Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri</p>", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # --- DATABASE ANALISA & POTENSI ---

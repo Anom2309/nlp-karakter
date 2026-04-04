@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(
-    page_title="Neuro Nada Deep Analysis", 
+    page_title="NLP Deep Analysis | Neuro Nada", 
     page_icon="🧠", 
     layout="centered"
 )
@@ -38,8 +38,8 @@ st.markdown(
 with st.sidebar:
     st.markdown("### 🎧 Hypno-Audio Vault")
     st.caption("Gunakan *headphone* untuk relaksasi gelombang otak (Binaural Beats) sebelum membaca analisa Anda.")
-    # Link audio relaksasi publik (bisa diganti link MP3 milik Coach Ahmad)
-    st.audio("https://cdn.pixabay.com/download/audio/2022/02/07/audio_c6d66e74ab.mp3", format="audio/mp3")
+    # Audio memanggil file dari GitHub langsung
+    st.audio("relaksasi.mp3", format="audio/mp3")
     st.markdown("---")
     
     st.markdown("## 🧠 Sesi Transformasi")
@@ -182,9 +182,8 @@ def get_arketipe(angka):
     }
     return arketipe_dict.get(angka, "Pribadi Unik")
 
-
 # --- INTERFACE UTAMA (TABS) ---
-st.title("🧠 Neuro Nada Deep Analysis")
+st.title("🧠 Neuro Nada Ecosystem")
 st.write("Sistem Pemetaan Bawah Sadar & Akselerasi Potensi Diri")
 st.markdown("---")
 
@@ -200,10 +199,11 @@ with tab1:
     tgl_input = st.date_input("Data Input (Tanggal Lahir):", value=tgl_today, min_value=datetime.date(1920, 1, 1), max_value=tgl_today, format="DD/MM/YYYY", key="tgl_user_t1")
 
     if st.button("Mulai Pemetaan Internal"):
-        if not nama_user:
-            st.error("🚨 Peringatan: Nama diperlukan untuk proses identifikasi pola.")
+        # PASUKAN SATPAM NLP
+        if not nama_user or len(nama_user.strip()) < 3:
+            st.error("🚨 Satpam NLP: Mohon masukkan nama dengan benar (minimal 3 huruf) agar vibrasi identitas bisa terbaca akurat.")
         elif tgl_input == tgl_today:
-            st.error("🚨 Peringatan: Mohon masukkan tanggal lahir Anda yang valid.")
+            st.error("🚨 Satpam NLP: Mohon masukkan tanggal lahir Anda yang valid, bukan hari ini.")
         else:
             with st.spinner('Melakukan kalibrasi pola pikiran Anda...'):
                 time.sleep(1)
@@ -327,7 +327,7 @@ with tab1:
 # ==========================================
 with tab2:
     st.subheader("Kalkulator Sinkronisasi Pasangan")
-    st.write("Uji kecocokan *Meta-Program* Anda dan pasangan.")
+    st.write("Uji kecocokan *Meta-Program* Anda dan pasangan berdasarkan Vibrasi Nama & Tanggal Lahir.")
     
     colA, colB = st.columns(2)
     with colA:
@@ -338,21 +338,60 @@ with tab2:
         tgl_2 = st.date_input("Tgl Lahir Pasangan:", min_value=datetime.date(1920, 1, 1), key="c_tgl2")
         
     if st.button("Cek Kompatibilitas Bawah Sadar"):
-        if nama_1 and nama_2:
-            ang_1 = hitung_angka(tgl_1)
-            ang_2 = hitung_angka(tgl_2)
-            selisih = abs(ang_1 - ang_2)
+        # PASUKAN SATPAM NLP
+        if not nama_1 or len(nama_1.strip()) < 3 or not nama_2 or len(nama_2.strip()) < 3:
+            st.error("🚨 Satpam NLP: Pastikan KEDUA nama diisi dengan benar (minimal 3 huruf) agar vibrasi hubungan bisa dihitung sempurna.")
+        else:
+            with st.spinner('Menyelaraskan frekuensi hubungan...'):
+                time.sleep(1)
+                
+            # 1. LOGIKA TANGGAL LAHIR
+            ang_tgl_1 = hitung_angka(tgl_1)
+            ang_tgl_2 = hitung_angka(tgl_2)
+            selisih_tgl = abs(ang_tgl_1 - ang_tgl_2)
+            
+            # 2. LOGIKA VIBRASI NAMA GABUNGAN
+            ang_nama_1 = hitung_angka_nama(nama_1)
+            ang_nama_2 = hitung_angka_nama(nama_2)
+            
+            total_nama = ang_nama_1 + ang_nama_2
+            while total_nama > 9:
+                total_nama = sum(int(d) for d in str(total_nama))
+                
+            # DATABASE VIBRASI HUBUNGAN
+            analisa_hubungan = {
+                1: "🔥 **VIBRASI 1: THE POWER COUPLE**\nHubungan ini memancarkan kemandirian dan ambisi. Kalian berdua memiliki ego yang sama-sama kuat. \n\n**Tantangan NLP:** Jangan bersaing untuk menyetir kapal. Gunakan teknik *Rapport* untuk saling mendukung, bukan saling mendominasi.",
+                2: "💞 **VIBRASI 2: THE SOULMATES**\nEnergi hubungan ini sangat harmonis, intim, dan romantis. Ada ikatan emosional yang kuat secara alami. \n\n**Tantangan NLP:** Waspadai *Codependency* (terlalu bergantung). Jangan sampai kehilangan identitas diri demi membahagiakan pasangan.",
+                3: "🎉 **VIBRASI 3: THE SOCIAL DYNAMO**\nHubungan kalian dipenuhi oleh komunikasi, tawa, dan energi yang ekspresif. Kalian adalah pasangan yang menyenangkan. \n\n**Tantangan NLP:** Jangan hindari pembicaraan berat. Latih *Deep Structure* saat membahas masa depan dan finansial.",
+                4: "🏰 **VIBRASI 4: THE SOLID FOUNDATION**\nKalian membangun hubungan yang sangat stabil, aman, dan dapat diandalkan. Sangat bagus untuk jangka panjang. \n\n**Tantangan NLP:** Rutinitas bisa membunuh romansa. Jangan terlalu kaku pada prosedur, ciptakan spontanitas untuk mencegah kebosanan.",
+                5: "🌪️ **VIBRASI 5: THE ADVENTURERS**\nHubungan ini sangat dinamis, bebas, dan penuh kejutan! Selalu ada hal baru yang kalian eksplorasi. \n\n**Tantangan NLP:** Fokus sering terpecah. Bangun *Anchor* komitmen yang kuat agar hubungan tidak terasa mengambang atau kurang kepastian.",
+                6: "🏡 **VIBRASI 6: THE NURTURERS**\nFokus utama kalian adalah kenyamanan dan saling merawat. Energi pengayomnya sangat tebal dan hangat. \n\n**Tantangan NLP:** Hindari pola *Mind Reading*. Jangan merasa kecewa jika pasangan tidak memenuhi ekspektasi kesempurnaan di kepala Anda.",
+                7: "🌌 **VIBRASI 7: THE SPIRITUAL SEEKERS**\nKalian memiliki koneksi batin yang sangat dalam, seringkali tidak butuh banyak kata untuk saling mengerti. \n\n**Tantangan NLP:** Kalian sama-sama butuh *Me Time*. Jangan biarkan keheningan berubah menjadi jarak emosional yang dingin.",
+                8: "👑 **VIBRASI 8: THE EMPIRE BUILDERS**\nHubungan kalian sangat materialistis (positif); fokus pada kesuksesan, kekayaan, dan pencapaian bersama. \n\n**Tantangan NLP:** Jangan bawa gaya *Command* atau negosiasi bisnis ke ranah asmara. Luangkan waktu untuk sentuhan afeksi yang tulus.",
+                9: "🕊️ **VIBRASI 9: THE IDEALISTS**\nHubungan kalian didasari oleh cinta tanpa syarat, toleransi tinggi, dan empati yang luar biasa dari kedua belah pihak. \n\n**Tantangan NLP:** Waspadai pola *Generalization*. Jangan terus-menerus memaklumi masalah berulang atas nama pengorbanan cinta."
+            }
             
             st.markdown("---")
-            if selisih == 0 or selisih == 3 or selisih == 6 or selisih == 9:
-                st.success(f"💘 **SKOR RAPPORT: 90% (Sangat Sinkron)**\n\nAnda berdua memiliki filter komunikasi yang sefrekuensi. Konflik jarang terjadi, namun awasi kebosanan.")
-            elif selisih == 1 or selisih == 2 or selisih == 8:
-                st.warning(f"⚖️ **SKOR RAPPORT: 70% (Saling Melengkapi)**\n\nBanyak perbedaan sudut pandang, namun justru ini yang membuat kalian belajar satu sama lain. Gunakan teknik *Pacing & Leading*.")
-            else:
-                st.error(f"🔥 **SKOR RAPPORT: 50% (Butuh Kalibrasi)**\n\nEgo dan dominasi sering berbenturan. Kalian butuh ruang saling memahami *Love Language* masing-masing secara dalam.")
+            nama_panggilan_1 = nama_1.split()[0].capitalize()
+            nama_panggilan_2 = nama_2.split()[0].capitalize()
+            st.subheader(f"🔮 Hasil Audit Asmara: {nama_panggilan_1} & {nama_panggilan_2}")
             
-            st.info("Ingin tahu cara komunikasi yang paling pas untuk menundukkan ego pasangan Anda? Konsultasikan di sesi Private Couple Therapy.")
-            st.link_button("Booking Couple Therapy", "https://wa.me/628999771486")
+            # Menampilkan Vibrasi Gabungan Nama
+            st.info(analisa_hubungan.get(total_nama, "Analisa kompatibilitas Anda unik."))
+            
+            # Menampilkan Skor Sinkronisasi Tanggal Lahir (Sebagai pendukung)
+            st.markdown("---")
+            st.markdown("#### Tingkat Sinkronisasi Meta-Program:")
+            if selisih_tgl == 0 or selisih_tgl == 3 or selisih_tgl == 6 or selisih_tgl == 9:
+                st.success(f"💘 **SKOR RAPPORT: 90% (Sangat Sinkron)**\n\nSecara *Meta-Program*, kalian punya filter pikiran yang sefrekuensi. Resolusi konflik biasanya sangat cepat.")
+            elif selisih_tgl == 1 or selisih_tgl == 2 or selisih_tgl == 8:
+                st.warning(f"⚖️ **SKOR RAPPORT: 70% (Saling Melengkapi)**\n\nBanyak perbedaan sudut pandang, namun ini bagus untuk saling belajar. Gunakan teknik *Pacing & Leading* saat berdebat.")
+            else:
+                st.error(f"🔥 **SKOR RAPPORT: 50% (Butuh Kalibrasi)**\n\nEgo dan dominasi sering berbenturan keras. Kalian butuh ruang khusus untuk memahami *Love Language* masing-masing.")
+            
+            st.markdown("---")
+            st.write("Ingin tahu skrip komunikasi NLP rahasia untuk meredam ego pasangan Anda? Konsultasikan secara privat bersama Coach Ahmad.")
+            st.link_button("Booking Sesi Couple Therapy", "https://wa.me/628999771486")
 
 # ==========================================
 # TAB 3: AUDIT PIKIRAN (WHEEL OF LIFE)
@@ -360,7 +399,6 @@ with tab2:
 with tab3:
     st.subheader("🕸️ Audit Keseimbangan Pikiran")
     
-    # --- TAMBAHAN PENJELASAN EDUKASI NLP ---
     st.info("**Apa itu Audit Pikiran?**\n\nBayangkan energi mental Anda sebagai sebuah roda penggerak. Jika satu sisi kempes atau bocor, laju hidup Anda pasti tersendat dan terasa *stuck*. \n\nAudit Pikiran adalah teknik pemetaan visual untuk melacak area mana di bawah sadar Anda yang sedang mengalami **kebocoran energi** paling parah. Seringkali kita merasa gagal di karir, padahal akar masalah sebenarnya ada di kondisi emosi atau asmara yang tidak seimbang.")
     
     st.write("Geser *slider* di bawah (angka 1-10) secara **jujur pada diri sendiri** untuk melihat bentuk riil jaring kehidupan Anda saat ini:")
@@ -372,13 +410,38 @@ with tab3:
     skor_spiritual = st.slider("Spiritualitas & Makna Hidup", 1, 10, 5)
     skor_fisik = st.slider("Kesehatan Fisik", 1, 10, 5)
     
-    # ... (KODE GRAFIK PLOTLY DI BAWAHNYA BIARKAN SAMA PERSIS SEPERTI SEBELUMNYA) ...
+    kategori = ['Mental', 'Karir/Uang', 'Asmara', 'Spiritual', 'Fisik']
+    skor = [skor_mental, skor_karir, skor_asmara, skor_spiritual, skor_fisik]
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+          r=skor + [skor[0]], 
+          theta=kategori + [kategori[0]],
+          fill='toself',
+          fillcolor='rgba(212, 175, 55, 0.4)', 
+          line=dict(color='#D4AF37')
+    ))
+    fig.update_layout(
+      polar=dict(radialaxis=dict(visible=True, range=[0, 10])),
+      showlegend=False,
+      margin=dict(l=40, r=40, t=40, b=40)
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    avg_skor = sum(skor) / 5
+    if avg_skor < 5:
+        st.error("Peringatan: Roda kehidupan Anda sedang tidak seimbang. Segera benahi area dengan skor terendah sebelum memicu *burnout*.")
+    elif avg_skor < 8:
+        st.warning("Cukup baik, namun masih ada 'kebocoran' energi di area tertentu yang menghambat Anda melesat maksimal.")
+    else:
+        st.success("Luar biasa! Kondisi *State of Mind* Anda sedang di puncak. Pertahankan keseimbangan ini.")
 
 # ==========================================
 # TESTIMONI RUNNING TEXT & FORM EXPANDER
 # ==========================================
 st.markdown("---")
-st.markdown("<h4 style='text-align: center; color: #D4AF37;'>Dipercaya 5.000+ Pengguna</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: #D4AF37;'>Dipercaya 1.542+ Pengguna</h4>", unsafe_allow_html=True)
 
 marquee_html = """
 <div style="background-color: #1a1a1a; padding: 12px; border-radius: 8px; border-left: 3px solid #D4AF37; border-right: 3px solid #D4AF37; white-space: nowrap; overflow: hidden; margin-bottom: 20px;">

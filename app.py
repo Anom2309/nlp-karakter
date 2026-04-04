@@ -5,6 +5,7 @@ import time
 import urllib.parse
 import math
 import plotly.graph_objects as go
+import random  # <--- Tambahin ini bro!
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(

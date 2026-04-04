@@ -9,7 +9,7 @@ import random
 
 # --- PENGATURAN HALAMAN ---
 st.set_page_config(
-    page_title="NLP Deep Analysis | Neuro Nada", 
+    page_title="Neuro Nada Deep Analysis", 
     page_icon="🧠", 
     layout="centered"
 )
@@ -476,7 +476,7 @@ with tab3:
 # TESTIMONI RUNNING TEXT & FORM EXPANDER
 # ==========================================
 st.markdown("---")
-st.markdown("<h4 style='text-align: center; color: #D4AF37;'>Dipercaya 1.542+ Pengguna</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: #D4AF37;'>Telah Digunakan oleh 5.500+ Pengguna</h4>", unsafe_allow_html=True)
 
 marquee_html = """
 <div style="background-color: #1a1a1a; padding: 12px; border-radius: 8px; border-left: 3px solid #D4AF37; border-right: 3px solid #D4AF37; white-space: nowrap; overflow: hidden; margin-bottom: 20px;">

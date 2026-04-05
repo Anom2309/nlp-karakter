@@ -282,7 +282,16 @@ tab1, tab2, tab3 = st.tabs(["👤 Personal Mapping", "👩‍❤️‍👨 Coupl
 # ==========================================
 with tab1:
     st.subheader("Bongkar Pola Bawah Sadar Anda")
-    nama_user = st.text_input("Nama Lengkap Anda:", placeholder="Masukkan nama panggilan Anda...", key="nama_user_t1")
+    nama_user = st.text_input(
+    "Nama Lengkap Anda:",
+    value=st.session_state.get("nama_global", ""),
+    placeholder="Masukkan nama panggilan Anda...",
+    key="nama_user_t1"
+)
+
+# AUTO SIMPAN KE GLOBAL
+if nama_user:
+    st.session_state["nama_global"] = nama_user
     tgl_today = datetime.date.today()
     tgl_input = st.date_input("Data Input (Tanggal Lahir):", value=tgl_today, min_value=datetime.date(1920, 1, 1), max_value=tgl_today, format="DD/MM/YYYY", key="tgl_user_t1")
 

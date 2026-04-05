@@ -82,11 +82,9 @@ with st.sidebar:
     st.markdown("### 🎧 Soundscape Terapi")
     st.caption("Putar audio ini untuk menurunkan gelombang otak Anda ke fase relaksasi (Alpha/Theta).")
     
-    # Memanggil file audio.mp3 dari dalam gudang GitHub (100% Anti-Error)
-    if os.path.exists("audio.mp3"):
-        st.audio("audio.mp3", format="audio/mp3")
-    else:
-        st.warning("Menunggu file audio.mp3 di-upload...")
+    # Memanggil audio langsung dari server publik (Anti-Gagal)
+    url_audio_relaksasi = "https://actions.google.com/sounds/v1/water/waves_crashing_on_rock_beach.ogg"
+    st.audio(url_audio_relaksasi, format="audio/ogg")
         
     st.markdown("---")
     st.markdown("### 🎬 Hypno-Video Vault")

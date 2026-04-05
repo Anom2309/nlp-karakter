@@ -304,28 +304,26 @@ with tab1:
 
     nama_user = st.session_state.get("nama_global", "")
 
-    if nama_user:
-        tgl_today = datetime.date.today()
+    tgl_today = datetime.date.today()
 
-        tgl_input = st.date_input(
-            "Data Input (Tanggal Lahir):",
-            value=tgl_today,
-            min_value=datetime.date(1920, 1, 1),
-            max_value=tgl_today,
-            key="tgl_user_t1"  # aman kalau cuma 1
-        )
+    tgl_input = st.date_input(
+        "Data Input (Tanggal Lahir):",
+        value=tgl_today,
+        min_value=datetime.date(1920, 1, 1),
+        max_value=tgl_today,
+        key="tgl_user_t1"
+    )
 
-        if st.button("Mulai Pemetaan Internal"):
+    if st.button("Mulai Pemetaan Internal"):
 
-            if len(nama_user.strip()) < 3:
-                st.error("🚨 Nama minimal 3 huruf.")
-            
-            elif tgl_input == tgl_today:
-                st.error("🚨 Gunakan tanggal lahir valid.")
-            
-            else:
-                st.success(f"Nama terbaca: {nama_user}")
+        if not nama_user or len(nama_user.strip()) < 3:
+            st.error("🚨 Nama minimal 3 huruf.")
 
+        elif tgl_input == tgl_today:
+            st.error("🚨 Gunakan tanggal lahir valid.")
+
+        else:
+            st.success(f"Nama terbaca: {nama_user}")
 # AUTO SIMPAN KE GLOBAL
 if nama_user:
     st.session_state["nama_global"] = nama_userwith tab1:

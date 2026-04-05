@@ -106,8 +106,17 @@ st.markdown("---")
 st.markdown("<h4 style='text-align: center; color: #D4AF37;'>🎧 Soundscape Terapi</h4>", unsafe_allow_html=True)
 st.caption("<div style='text-align: center; margin-bottom:10px;'>Putar audio ini untuk menurunkan gelombang otak ke fase relaksasi (Alpha/Theta) sebelum mulai analisa.</div>", unsafe_allow_html=True)
 
-# Menggunakan link MP3 Publik yang 100% stabil di semua perangkat
-st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", format="audio/mp3")
+# Memakai HTML murni dengan 2 sumber audio agar kebal dari error browser
+st.markdown("""
+    <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+        <audio controls loop style="width: 80%; border-radius: 30px; box-shadow: 0px 4px 10px rgba(212, 175, 55, 0.2);">
+            <source src="https://actions.google.com/sounds/v1/water/waves_crashing_on_rock_beach.ogg" type="audio/ogg">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
+    </div>
+""", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # --- DATABASE ANALISA & POTENSI ---

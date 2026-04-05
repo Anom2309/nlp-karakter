@@ -330,13 +330,11 @@ with st.expander("💬 Bagikan Pengalaman Anda di sini"):
         
         if st.form_submit_button("Kirim Ulasan"):
             if rev_nama and rev_komentar:
-                # Masukkan ulasan baru ke urutan paling atas di session state
                 st.session_state.daftar_ulasan.insert(0, {
                     "nama": rev_nama, 
                     "rating": rev_rating, 
                     "teks": rev_komentar
                 })
-                # Refresh halaman biar ulasannya langsung nongol
                 st.rerun()
             else:
                 st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")

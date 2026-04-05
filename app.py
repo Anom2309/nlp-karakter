@@ -123,6 +123,17 @@ if os.path.exists("banner.jpg"):
 st.markdown("<h1 style='text-align: center; margin-top: 10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
 st.markdown(f"<p style='text-align: center; font-size: 18px; color: #D4AF37;'>{get_greeting()}</p>", unsafe_allow_html=True)
 
+# --- PEMUTAR MUSIK RELAKSASI ---
+st.markdown("---")
+st.markdown("<h4 style='text-align: center; color: #D4AF37;'>🎧 Soundscape Terapi</h4>", unsafe_allow_html=True)
+st.caption("<div style='text-align: center; margin-bottom:10px;'>Tekan Play untuk memulai frekuensi relaksasi khusus dari Coach Ahmad Septian.</div>", unsafe_allow_html=True)
+
+if os.path.exists("relaksasi.mp3"):
+    st.audio("relaksasi.mp3", format="audio/mp3")
+else:
+    st.warning("⚠️ Menunggu file 'relaksasi.mp3' diupload ke GitHub.")
+st.markdown("---")
+
 # --- DATABASE ANALISA & POTENSI ---
 vibrasi_nama_dict = {
     1: "Nama Anda memancarkan getaran KEMANDIRIAN & KEPEMIMPINAN.",

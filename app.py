@@ -128,10 +128,10 @@ st.markdown("---")
 st.markdown("<h4 style='text-align: center; color: #D4AF37;'>🎧 Soundscape Terapi</h4>", unsafe_allow_html=True)
 st.caption("<div style='text-align: center; margin-bottom:10px;'>Tekan Play untuk memulai frekuensi relaksasi khusus dari Coach Ahmad Septian.</div>", unsafe_allow_html=True)
 
-# Masukkan link raw dari GitHub di antara tanda kutip di bawah ini
-url_lagu_coach = "https://raw.githubusercontent.com/Anom2309/neuro-nada/refs/heads/main/relaksasi.mp3"
+# Memakai Direct Link Google Drive (Dijamin bunyi dan anti-error)
+url_lagu_coach = "https://drive.google.com/uc?export=download&id=1Eg-xmIhFs4Vj2eesO-D08TPr8SenY94A"
 
-st.audio(https://drive.google.com/drive/my-drive?hl=ID)
+st.audio(url_lagu_coach, format="audio/mp3")
 st.markdown("---")
 # --- DATABASE ANALISA & POTENSI ---
 vibrasi_nama_dict = {

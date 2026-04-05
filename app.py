@@ -302,7 +302,6 @@ with tab2:
             st.link_button("Booking Sesi Couple Therapy", "https://wa.me/628999771486")
         else:
             st.warning("Pastikan data diisi dengan lengkap.")
-
 # ==========================================
 # TAB 3: AUDIT PIKIRAN
 # ==========================================

@@ -233,11 +233,28 @@ with tab1:
 with tab2:
     st.subheader("Sinkronisasi Pasangan")
     c1, c2 = st.columns(2)
-    with c1: n1 = st.text_input("Nama Anda", key="n1"); d1 = st.date_input("Lahir Anda", key="d1")
-    with c2: n2 = st.text_input("Nama Pasangan", key="n2"); d2 = st.date_input("Lahir Pasangan", key="d2")
+
+    # BATAS TANGGAL
+    min_date = datetime.date(1901, 1, 1)
+    max_date = datetime.date.today() - datetime.timedelta(days=15*365)
+
+    with c1:
+        n1 = st.text_input("Nama Anda", key="n1")
+        d1 = st.date_input("Lahir Anda", min_value=min_date, max_value=max_date, key="d1")
+
+    with c2:
+        n2 = st.text_input("Nama Pasangan", key="n2")
+        d2 = st.date_input("Lahir Pasangan", min_value=min_date, max_value=max_date, key="d2")
     
     if st.button("Cek Keselarasan"):
-        if n1 and n2 and d1 != datetime.date.today():
+        # VALIDASI UMUR MINIMAL 15 TAHUN
+        umur1 = (datetime.date.today() - d1).days // 365
+        umur2 = (datetime.date.today() - d2).days // 365
+
+        if umur1 < 15 or umur2 < 15:
+            st.error("🚫 Minimal usia 15 tahun untuk menggunakan fitur ini.")
+        
+        elif n1 and n2 and d1 != datetime.date.today():
             with st.spinner('Membaca Vibrasi Gabungan...'):
                 time.sleep(1.5)
                 
@@ -283,7 +300,8 @@ with tab2:
             
             st.markdown("---")
             st.link_button("Booking Sesi Couple Therapy", "https://wa.me/628999771486")
-        else: st.warning("Pastikan data diisi dengan lengkap.")
+        else:
+            st.warning("Pastikan data diisi dengan lengkap.")
 
 # ==========================================
 # TAB 3: AUDIT PIKIRAN

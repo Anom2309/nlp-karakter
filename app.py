@@ -136,15 +136,15 @@ st.markdown("---")
 
 # --- DATABASE ANALISA & POTENSI ---
 vibrasi_nama_dict = {
-    1: "Nama Anda memancarkan getaran KEMANDIRIAN & KEPEMIMPINAN.",
-    2: "Nama Anda memancarkan getaran DIPLOMASI & KEDAMAIAN.",
-    3: "Nama Anda memancarkan getaran EKSPRESI & KECERIAAN.",
-    4: "Nama Anda memancarkan getaran STRUKTUR & KEDISIPLINAN.",
-    5: "Nama Anda memancarkan getaran KEBEBASAN & DINAMIKA.",
-    6: "Nama Anda memancarkan getaran TANGGUNG JAWAB & KASIH SAYANG.",
-    7: "Nama Anda memancarkan getaran KEDALAMAN & ANALISA.",
-    8: "Nama Anda memancarkan getaran OTORITAS & KESUKSESAN.",
-    9: "Nama Anda memancarkan getaran KEMANUSIAAN & IDEALISME."
+    1: "Nama Anda memancarkan getaran KEMANDIRIAN & KEPEMIMPINAN. Orang melihat Anda sebagai sosok yang berani mengambil inisiatif.",
+    2: "Nama Anda memancarkan getaran DIPLOMASI & KEDAMAIAN. Orang merasa nyaman dan aman saat berinteraksi dengan Anda.",
+    3: "Nama Anda memancarkan getaran EKSPRESI & KECERIAAN. Anda memiliki daya tarik komunikasi yang membuat orang mudah menyukai Anda.",
+    4: "Nama Anda memancarkan getaran STRUKTUR & KEDISIPLINAN. Orang mempercayai Anda karena Anda terlihat solid dan bisa diandalkan.",
+    5: "Nama Anda memancarkan getaran KEBEBASAN & DINAMIKA. Aura Anda penuh dengan petualangan dan perubahan yang memikat orang lain.",
+    6: "Nama Anda memancarkan getaran TANGGUNG JAWAB & KASIH SAYANG. Anda memancarkan aura pengayom yang membuat orang ingin bersandar pada Anda.",
+    7: "Nama Anda memancarkan getaran KEDALAMAN & ANALISA. Orang melihat Anda sebagai sosok yang misterius, cerdas, dan pencari kebenaran.",
+    8: "Nama Anda memancarkan getaran OTORITAS & KESUKSESAN. Aura nama Anda sangat kuat dalam menarik kelimpahan dan kekuasaan.",
+    9: "Nama Anda memancarkan getaran KEMANUSIAAN & IDEALISME. Anda dilihat sebagai sosok berjiwa besar yang peduli pada banyak orang."
 }
 
 data_analisa = {

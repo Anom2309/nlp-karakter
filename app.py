@@ -101,13 +101,23 @@ if os.path.exists("banner.jpg"):
 st.markdown("<h1 style='text-align: center; margin-top: 10px;'>🧠 Neuro Nada Deep Analysis</h1>", unsafe_allow_html=True)
 st.markdown(f"<p style='text-align: center; font-size: 18px; color: #D4AF37;'>{get_greeting()}</p>", unsafe_allow_html=True)
 
-# --- PEMUTAR MUSIK RELAKSASI DI TENGAH LAYAR ---
+# --- PEMUTAR MUSIK RELAKSASI CUSTOM ---
 st.markdown("---")
 st.markdown("<h4 style='text-align: center; color: #D4AF37;'>🎧 Soundscape Terapi</h4>", unsafe_allow_html=True)
-st.caption("<div style='text-align: center; margin-bottom:10px;'>Putar audio ini untuk menurunkan gelombang otak ke fase relaksasi (Alpha/Theta) sebelum mulai analisa.</div>", unsafe_allow_html=True)
+st.caption("<div style='text-align: center; margin-bottom:10px;'>Tekan Play untuk memulai frekuensi relaksasi khusus dari Coach Ahmad Septian.</div>", unsafe_allow_html=True)
 
-# Memakai HTML murni dengan 2 sumber audio agar kebal dari error browser
-st.markdown("""
+# Logika membaca file musik sendiri dari GitHub
+if os.path.exists("relaksasi.mp3"):
+    try:
+        audio_file = open("relaksasi.mp3", "rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format="audio/mp3")
+    except Exception as e:
+        st.error("Gagal memutar audio. Pastikan format file benar.")
+else:
+    st.warning("⚠️ File 'relaksasi.mp3' belum terdeteksi. Pastikan lu udah upload ke GitHub dengan nama yang pas ya!")
+
+st.markdown("---")
     <div style="display: flex; justify-content: center; margin-bottom: 10px;">
         <audio controls loop style="width: 80%; border-radius: 30px; box-shadow: 0px 4px 10px rgba(212, 175, 55, 0.2);">
             <source src="https://actions.google.com/sounds/v1/water/waves_crashing_on_rock_beach.ogg" type="audio/ogg">

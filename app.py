@@ -198,11 +198,22 @@ tab1, tab2, tab3 = st.tabs(["👤 Personal Mapping", "👩‍❤️‍👨 Coupl
 with tab1:
     st.subheader("Bongkar Pola Bawah Sadar")
     nama_user = st.text_input("Nama Lengkap Anda:", placeholder="Siapa nama Anda?", key="t1_nama")
-    tgl_input = st.date_input("Tanggal Lahir:", value=datetime.date.today(), format="DD/MM/YYYY")
+
+    # BATAS TANGGAL
+    min_date_pm = datetime.date(1901, 1, 1)
+    max_date_pm = datetime.date.today()
+
+    tgl_input = st.date_input(
+        "Tanggal Lahir:",
+        value=datetime.date(2000, 1, 1),
+        min_value=min_date_pm,
+        max_value=max_date_pm,
+        format="DD/MM/YYYY"
+    )
 
     if st.button("Mulai Kalibrasi"):
-        if len(nama_user) < 3 or tgl_input == datetime.date.today():
-            st.error("🚨 Mohon isi nama dan tanggal lahir yang benar.")
+        if len(nama_user) < 3:
+            st.error("🚨 Mohon isi nama yang benar.")
         else:
             with st.spinner('Menyelaraskan gelombang otak...'):
                 time.sleep(1)
@@ -233,11 +244,29 @@ with tab1:
 with tab2:
     st.subheader("Sinkronisasi Pasangan")
     c1, c2 = st.columns(2)
-    with c1: n1 = st.text_input("Nama Anda", key="n1"); d1 = st.date_input("Lahir Anda", key="d1")
-    with c2: n2 = st.text_input("Nama Pasangan", key="n2"); d2 = st.date_input("Lahir Pasangan", key="d2")
+
+    # BATAS TANGGAL
+    min_date = datetime.date(1901, 1, 1)
+    max_date = datetime.date.today()
+
+    with c1:
+        n1 = st.text_input("Nama Anda", key="n1")
+        d1 = st.date_input("Lahir Anda", min_value=min_date, max_value=max_date, key="d1")
+
+    with c2:
+        n2 = st.text_input("Nama Pasangan", key="n2")
+        d2 = st.date_input("Lahir Pasangan", min_value=min_date, max_value=max_date, key="d2")
     
     if st.button("Cek Keselarasan"):
-        if n1 and n2 and d1 != datetime.date.today():
+
+        # VALIDASI UMUR
+        umur1 = (datetime.date.today() - d1).days // 365
+        umur2 = (datetime.date.today() - d2).days // 365
+
+        if umur1 < 15 or umur2 < 15:
+            st.error("🚫 Minimal usia 15 tahun untuk menggunakan fitur ini.")
+
+        elif n1 and n2:
             with st.spinner('Membaca Vibrasi Gabungan...'):
                 time.sleep(1.5)
                 
@@ -283,8 +312,8 @@ with tab2:
             
             st.markdown("---")
             st.link_button("Booking Sesi Couple Therapy", "https://wa.me/628999771486")
-        else: st.warning("Pastikan data diisi dengan lengkap.")
-
+        else:
+            st.warning("Pastikan data diisi dengan lengkap.")
 # ==========================================
 # TAB 3: AUDIT PIKIRAN
 # ==========================================

@@ -93,28 +93,38 @@ st.markdown(
 
 # --- SIDEBAR PROMOSI & VIDEO ---
 with st.sidebar:
+    # 1. Menampilkan Logo Identitas di Puncak Sidebar (Jika ada)
     if os.path.exists("baru.jpg.png"):
-        st.image("baru.jpg.png", use_container_width=True)
-    elif os.path.exists("baru.jpg"):
-        st.image("baru.jpg", use_container_width=True)
+        try:
+            st.image("baru.jpg.png", use_container_width=True)
+            st.markdown("<br>", unsafe_allow_html=True) # Jarak pemanis
+        except:
+            pass
 
-    st.markdown(f"### {get_greeting()}")
-    
     st.markdown("### 🎬 Hypno-Video Vault")
+    st.caption("Fokuskan pandangan Anda pada video ini sambil menggunakan headphone untuk relaksasi maksimal.")
+    
+    # Putar video YouTube Coach Ahmad
     st.video("https://youtu.be/kkRcH6aH_lI?si=bpUZF3CWl8DKLw5m")
-    
+        
     st.markdown("---")
-    st.markdown("## 🧠 Sesi Transformasi")
-    st.info("**Reset Pola Pikir Anda**\n\nSering merasa terhambat? Mari kita lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
     
+    st.markdown("## 🧠 Sesi Transformasi")
+    st.info("**Reset Pola Pikir Anda**\n\nSering merasa terhambat oleh pikiran sendiri? Mari kita lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
+    
+    # --- LINK WA UNTUK AMANKAN JADWAL ---
     phone_number_sidebar = "628999771486"
-    wa_link_sidebar = f"https://wa.me/{phone_number_sidebar}?text=Halo%20Coach%20Ahmad,%20saya%20siap%20untuk%20sesi%20Transformasi%20Pikiran."
+    wa_text_sidebar = "Halo Coach Ahmad, saya tertarik untuk mengamankan jadwal Private Session Hypno-NLP. Apakah masih ada kuota?"
+    encoded_wa_sidebar = urllib.parse.quote(wa_text_sidebar)
+    wa_link_sidebar = f"https://wa.me/{phone_number_sidebar}?text={encoded_wa_sidebar}"
+    
     st.markdown(f"[👉 **Amankan Jadwal Anda**]({wa_link_sidebar})")
     
     st.markdown("---")
-    st.success("**📚 Seni Persuasi NLP**\n\nPelajari bagaimana bahasa bekerja di tingkat bawah sadar.")
+    st.success("**📚 Seni Persuasi NLP**\n\nPelajari bagaimana bahasa bekerja di tingkat bawah sadar untuk meningkatkan pengaruh Anda.")
     st.markdown("[👉 **Akses Modul Lengkap**](https://lynk.id/username_lu/ebook-nlp)")
-    st.caption("© 2026 Neuro Nada Academy")
+    st.markdown("---")
+    st.caption("© 2026 Ahmad Septian Dwi Cahyo")
 
 # --- INTERFACE UTAMA & BANNER ---
 # 1. Tampilkan Banner Full (Jika file banner.jpg ada)
@@ -202,13 +212,6 @@ def hitung_angka(tanggal):
     return total
 
 def hitung_angka_nama(nama):
-    huruf_angka = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7, 'H':8, 'I':9, 'J':1, 'K':2, 'L':3, 'M':4, 'N':5, 'O':6, 'P':7, 'Q':8, 'R':9, 'S':1, 'T':2, 'U':3, 'V':4, 'W':5, 'X':6, 'Y':7, 'Z':8}
-    total = sum(huruf_angka.get(h, 0) for h in nama.upper())
-    if total == 0: return 1
-    while total > 9: total = sum(int(d) for d in str(total))
-    return total
-
-def hitung_angka_nama(kamu):
     huruf_angka = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7, 'H':8, 'I':9, 'J':1, 'K':2, 'L':3, 'M':4, 'N':5, 'O':6, 'P':7, 'Q':8, 'R':9, 'S':1, 'T':2, 'U':3, 'V':4, 'W':5, 'X':6, 'Y':7, 'Z':8}
     total = sum(huruf_angka.get(h, 0) for h in nama.upper())
     if total == 0: return 1
@@ -473,6 +476,8 @@ with tab2:
             st.markdown("---")
             st.write("Ingin tahu skrip komunikasi NLP rahasia untuk meredam ego pasangan Anda? Konsultasikan secara privat bersama Coach Ahmad.")
             st.link_button("Booking Sesi Couple Therapy", "https://wa.me/628999771486")
+
+
 
 # ==========================================
 # TAB 3: AUDIT PIKIRAN (WHEEL OF LIFE)

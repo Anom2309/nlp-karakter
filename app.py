@@ -12,7 +12,7 @@ st.set_page_config(
     page_title="Neuro Nada Deep Analysis", 
     page_icon="🧠", 
     layout="centered",
-    initial_sidebar_state="collapsed" # Biar kerasa kayak aplikasi HP sungguhan
+    initial_sidebar_state="collapsed" 
 )
 
 # --- FUNGSI NYAWA: TYPEWRITER EFFECT ---
@@ -32,6 +32,14 @@ def get_greeting():
     elif hour < 18: return "Selamat Sore, Sang Pencari Makna"
     else: return "Selamat Malam, Pribadi yang Tenang"
 
+# --- INIT SESSION STATE UNTUK ULASAN REAL-TIME ---
+if 'daftar_ulasan' not in st.session_state:
+    st.session_state.daftar_ulasan = [
+        {"nama": "dr. Antonius", "rating": "⭐⭐⭐⭐⭐", "teks": "Ini bukan cuma ramalan, ini pemetaan otak yang masuk akal. Investasi terbaik tahun ini!"},
+        {"nama": "Andi S. (CEO)", "rating": "⭐⭐⭐⭐⭐", "teks": "Sebagai tipe 8, saya kaget NLP ini bisa baca pola leadership saya. Mind-blowing!"},
+        {"nama": "Sinta W.", "rating": "⭐⭐⭐⭐", "teks": "Sangat relate dengan pola asmara 'Gak Enakan'. Makasih Coach!"}
+    ]
+
 # --- CUSTOM CSS ---
 st.markdown(
     """<style>
@@ -50,21 +58,40 @@ st.markdown(
         transform: scale(1.02);
         background-color: #FFC107 !important;
     }
+    .ulasan-box {
+        background-color: #1e1e1e;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #FFD700;
+        margin-bottom: 10px;
+    }
     </style>""", 
     unsafe_allow_html=True
 )
 
-# --- SIDEBAR PROMOSI & VIDEO ---
+# --- SIDEBAR PROMOSI, VIDEO & AUDIO RELAKSASI ---
 with st.sidebar:
-    # Cek file logo
     if os.path.exists("baru.jpg.png"):
         st.image("baru.jpg.png", use_container_width=True)
     elif os.path.exists("baru.jpg"):
         st.image("baru.jpg", use_container_width=True)
 
     st.markdown(f"### {get_greeting()}")
+    
+    # --- FITUR BARU: MUSIK RELAKSASI (BINAURAL BEATS) ---
+    st.markdown("### 🎧 Soundscape Terapi")
+    st.markdown("""
+        <audio controls loop style="width: 100%;">
+          <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=meditation-bowl-singing-bowl-root-chakra-101155.mp3" type="audio/mpeg">
+          Browser Anda tidak mendukung elemen audio.
+        </audio>
+        <p style='font-size: 12px; color: gray;'>Putar audio ini untuk menurunkan gelombang otak Anda ke fase relaksasi (Alpha/Theta) selama membaca analisa.</p>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("---")
     st.markdown("### 🎬 Hypno-Video Vault")
     st.video("https://youtu.be/kkRcH6aH_lI?si=bpUZF3CWl8DKLw5m")
+    
     st.markdown("---")
     st.markdown("## 🧠 Sesi Transformasi")
     st.info("**Reset Pola Pikir Anda**\n\nSering merasa terhambat? Mari kita lakukan kalibrasi ulang dalam sesi *Private Hypno-NLP* bersama **Ahmad Septian**.")
@@ -86,7 +113,7 @@ st.markdown("<h1 style='text-align: center; margin-top: 10px;'>🧠 Neuro Nada D
 st.markdown(f"<p style='text-align: center; font-size: 18px; color: #D4AF37;'>{get_greeting()}</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# --- DATABASE ANALISA & POTENSI (LENGKAP) ---
+# --- DATABASE ANALISA & POTENSI ---
 vibrasi_nama_dict = {
     1: "Nama Anda memancarkan getaran KEMANDIRIAN & KEPEMIMPINAN.",
     2: "Nama Anda memancarkan getaran DIPLOMASI & KEDAMAIAN.",
@@ -197,7 +224,6 @@ with tab2:
                 nep2, weton2 = get_neptu_weton(d2)
                 res = (nep1 + nep2) % 8
                 
-                # DATABASE WETON DINAMIS (BANYAK VARIASI)
                 hasil_weton_dinamis = {
                     1: [
                         ("💔 PEGAT (Rawan Gesekan)", "Kalian memiliki tantangan besar di area komunikasi. Sering terjadi salah paham dari hal kecil.\n\n**Tantangan NLP:** Kurangi filter 'Mind Reading' (berharap dia paham tanpa diucapkan). Latih komunikasi asertif."),
@@ -233,10 +259,8 @@ with tab2:
                     ]
                 }
                 
-                # Mengacak pesan berdasarkan hasil
                 judul_dinamis, desc_dinamis = random.choice(hasil_weton_dinamis.get(res, hasil_weton_dinamis[0]))
                 
-                # Logic Rapport Tingkat Lanjut
                 ang_tgl_1 = hitung_angka(d1)
                 ang_tgl_2 = hitung_angka(d2)
                 selisih_tgl = abs(ang_tgl_1 - ang_tgl_2)
@@ -256,9 +280,7 @@ with tab2:
             n1_cap = n1.split()[0].capitalize()
             n2_cap = n2.split()[0].capitalize()
             st.subheader(f"🔮 Hasil Audit Asmara: {n1_cap} & {n2_cap}")
-            
             st.caption(f"🧩 {n1_cap}: **{weton1}** | 🧩 {n2_cap}: **{weton2}**")
-            
             st.info(f"#### {judul_dinamis}\n{desc_dinamis}")
             
             st.markdown("#### Tingkat Sinkronisasi Pola Pikir (NLP):")
@@ -285,6 +307,42 @@ with tab3:
         if avg < 5: st.error(random.choice(msgs[:1]))
         elif avg < 8: st.warning(random.choice(msgs[1:2]))
         else: st.success(random.choice(msgs[2:]))
+
+# ==========================================
+# ULASAN REAL-TIME MENGGUNAKAN SESSION STATE
+# ==========================================
+st.markdown("---")
+st.markdown("<h3 style='text-align: center; color: #D4AF37;'>Suara Transformasi</h3>", unsafe_allow_html=True)
+st.write("Lihat apa kata mereka yang telah membongkar pola bawah sadarnya di Neuro Nada.")
+
+# Menampilkan Daftar Ulasan (5 Teratas)
+for ulasan in st.session_state.daftar_ulasan[:5]:
+    st.markdown(f"""
+    <div class="ulasan-box">
+        <b>{ulasan['nama']}</b> {ulasan['rating']}<br>
+        <i>"{ulasan['teks']}"</i>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Form Input Ulasan Baru
+with st.expander("💬 Bagikan Pengalaman Anda di sini"):
+    with st.form("form_review"):
+        rev_nama = st.text_input("Nama Anda")
+        rev_rating = st.radio("Rating Bintang", ["⭐⭐⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐"], horizontal=True)
+        rev_komentar = st.text_area("Tulis ulasan Anda di sini...")
+        
+        if st.form_submit_button("Kirim Ulasan"):
+            if rev_nama and rev_komentar:
+                # Masukkan ulasan baru ke urutan paling atas di session state
+                st.session_state.daftar_ulasan.insert(0, {
+                    "nama": rev_nama, 
+                    "rating": rev_rating, 
+                    "teks": rev_komentar
+                })
+                # Refresh halaman biar ulasannya langsung nongol
+                st.rerun()
+            else:
+                st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")
 
 st.markdown("---")
 st.markdown("<center><b>Neuro Nada Academy</b><br><small>Ahmad Septian Dwi Cahyo</small></center>", unsafe_allow_html=True)

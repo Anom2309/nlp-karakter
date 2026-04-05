@@ -114,7 +114,7 @@ with st.sidebar:
     st.markdown("---")
     st.success("**📚 Seni Persuasi NLP**\n\nPelajari bagaimana bahasa bekerja di tingkat bawah sadar.")
     st.markdown("[👉 **Akses Modul Lengkap**](https://lynk.id/username_lu/ebook-nlp)")
-    st.caption("© 2026 Ahmad Septian Dwi Cahyo")
+    st.caption("© 2026 Neuro Nada Academy")
 
 # --- INTERFACE UTAMA & BANNER ---
 # 1. Tampilkan Banner Full (Jika file banner.jpg ada)
@@ -577,4 +577,4 @@ with st.expander("💬 Bagikan Pengalaman Anda di sini"):
                 st.warning("Mohon isi Nama dan Ulasan Anda terlebih dahulu.")
 
 st.markdown("---")
-st.markdown("<center><b>Neuro Nada Academy</b><br><small>Ahmad Septian Dwi Cahyo</small></center>", unsafe_allow_html=True)
+st.markdown("<center><b>Ahmad Septian Dwi Cahyo</b><br><small>Certified NLP Trainer & Professional Hypnotherapist</small></center>", unsafe_allow_html=True)

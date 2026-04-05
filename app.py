@@ -119,6 +119,18 @@ with st.sidebar:
     st.markdown("[👉 **Akses Modul Lengkap**](https://lynk.id/username_lu/ebook-nlp)")
     st.caption("© 2026 Ahmad Septian Dwi Cahyo")
 
+# --- INPUT NAMA GLOBAL (PINDAH KE ATAS) ---
+st.markdown("### 👤 Masukkan Nama Anda")
+
+nama_input_global = st.text_input(
+    "Nama Anda:",
+    value=st.session_state.get("nama_global", ""),
+    key="nama_global_input"
+)
+
+if nama_input_global:
+    st.session_state["nama_global"] = nama_input_global
+
 # --- INTERFACE UTAMA & BANNER ---
 if os.path.exists("banner.jpg"):
     st.image("banner.jpg", use_container_width=True)

@@ -304,7 +304,6 @@ with tab1:
     nama_user = st.session_state.get("nama_global", "")
 
 # AUTO UPDATE REAL-TIME
-st.session_state["nama_global"] = nama_user
 # AUTO SIMPAN KE GLOBAL
 if nama_user:
     st.session_state["nama_global"] = nama_user
